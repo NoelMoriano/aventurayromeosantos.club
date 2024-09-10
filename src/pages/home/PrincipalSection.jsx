@@ -6,12 +6,18 @@ export const PrincipalSection = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    videoRef?.current && videoRef.current.play();
+    const videoElement = videoRef.current;
 
-    // setTimeout(() => {
-    //   console.log("RUN!!!");
-    //   videoRef.current.muted = true;
-    // }, 1600);
+    videoElement.muted = false;
+    videoElement.play();
+
+    const timeout = setTimeout(() => {
+      if (videoElement) {
+        videoElement.muted = true;
+      }
+    }, 16000);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -21,6 +27,7 @@ export const PrincipalSection = () => {
         className="video-aventura"
         poster={VideoAventura}
         autoPlay
+        loop
         controls={false}
       >
         <source src="./videos/video-aventura.mp4" type="video/mp4" />

@@ -1,18 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/index.js";
+import { Avatar } from "../../images/index.js";
 
 export const WhatIsItAbout = () => {
   return (
     <Container id="what-is-it-about">
-      <h1>Compra tus entradas de manera segura</h1>
+      <h1>Compra tus entradas de una manera segura y fiable</h1>
 
-      <p className="description">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-        consequuntur culpa eius hic illum inventore laboriosam modi nihil non
-        odit officiis quis, quisquam, repellendus tenetur totam veritatis
-        voluptas! Culpa, perferendis?
-      </p>
+      <div className="first-section">
+        <div className="item-img">
+          <img src={Avatar} alt="aventura foto" />
+        </div>
+        <p className="description">
+          Hola, soy un chico informatico que tiene a disponibilidad 6 entradas,
+          con esto solo busco realizar la venta de mis entradas de una manera
+          segura, la coordinación sera solo con personas serias por Google Meet
+          y se concluira el mismo dia del concierto, cada vez que tenga entradas
+          nuevas para conciertos esta sera mi prataforma para la venta.
+        </p>
+      </div>
 
       <div className="steps-buy">
         <ul>
@@ -57,13 +64,29 @@ const Container = styled.div`
   padding: 5em 1em;
   text-align: center;
 
-  .description {
+  .first-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 90%;
-    margin: auto auto 3em auto;
-    font-size: 1.1em;
-
+    gap: 1.5em;
+    margin: 1em auto;
     ${mediaQuery.minDesktop} {
-      width: 80%;
+      text-align: left;
+      justify-content: space-around;
+      width: 50%;
+    }
+    .item-img {
+      img {
+        border-radius: 50%;
+        width: 7em;
+        height: 7em;
+      }
+    }
+    .description {
+      font-size: 1.1em;
     }
   }
 
@@ -90,7 +113,7 @@ const Container = styled.div`
           justify-content: center;
 
           .tag {
-            background: #bbdefd;
+            background: #ffca5e;
             border-radius: 0.4em;
             padding: 0.2em 0.5em;
             font-weight: 600;

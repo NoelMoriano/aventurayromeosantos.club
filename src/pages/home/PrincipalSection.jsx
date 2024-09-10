@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { VideoAventura } from "../../images/index.js";
+import { Luz1, VideoAventura } from "../../images/index.js";
 import styled from "styled-components";
 
 export const PrincipalSection = () => {
@@ -22,6 +22,7 @@ export const PrincipalSection = () => {
 
   return (
     <Container>
+      <img src={Luz1} alt="aventura fondo" className="bg-luz" />
       <video
         ref={videoRef}
         className="video-aventura"
@@ -41,6 +42,15 @@ const Container = styled.div`
   width: 100%;
   min-height: auto;
   height: auto;
+  position: relative;
+  .bg-luz {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
   .video-aventura {
     width: 100%;
     height: 100%;

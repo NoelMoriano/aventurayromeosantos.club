@@ -4,15 +4,15 @@ import styled from "styled-components";
 export const HeaderLayout = () => {
   return (
     <Container>
-      <ul>
+      <ul id="home">
         <li>
-          <a href="/">Inicio</a>
+          <a href="#home">Inicio</a>
         </li>
         <li>
-          <a href="/about-us">¿De que se trata?</a>
+          <a href="#what-is-it-about">¿De que se trata?</a>
         </li>
         <li>
-          <a href="/tickets">Entradas</a>
+          <a href="#tickets">Entradas</a>
         </li>
       </ul>
     </Container>
@@ -27,15 +27,18 @@ const Container = styled.div`
   left: 0;
   right: 0;
   padding: 1em;
+  z-index: 500;
   ul {
     display: flex;
     justify-content: center;
     gap: 2em;
     list-style: none;
     font-family: "Oswald", sans-serif;
+    font-size: 1.1em;
     li a {
       color: #fff;
       text-decoration: none;
+      cursor: pointer;
     }
   }
 `;

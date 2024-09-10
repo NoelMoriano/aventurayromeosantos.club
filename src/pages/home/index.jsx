@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { PrincipalSection } from "./PrincipalSection";
+import { WhatIsItAbout } from "./WhatIsItAbout.jsx";
+import { Tickets } from "./Tickets.jsx";
 
 export const Home = () => {
   return (
     <Container>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque doloremque
-      doloribus enim eum explicabo id, impedit itaque maiores numquam quasi
-      recusandae vero voluptates. Alias, blanditiis delectus expedita minus
-      quidem soluta?
+      <PrincipalSection />
+      <WhatIsItAbout />
+      <Tickets />
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  background: #444;
-  color: black;
+  min-height: 100svh;
+  height: auto;
 `;

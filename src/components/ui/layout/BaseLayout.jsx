@@ -15,8 +15,7 @@ export const BaseLayout = ({ children }) => {
 
 const Container = styled.div`
   width: 100vw;
-  min-height: 100svh;
+  min-height: 100dvh;
   height: auto;
   position: relative;
-  padding-top: 5em;
 `;

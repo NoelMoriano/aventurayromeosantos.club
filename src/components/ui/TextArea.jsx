@@ -35,7 +35,7 @@ export const TextArea = ({
       helperText={helperText}
     >
       <InputAntd.TextArea
-        bordered={false}
+        variant="borderless"
         value={value}
         disabled={disabled}
         placeholder={placeholder}

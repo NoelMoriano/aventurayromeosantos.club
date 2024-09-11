@@ -5,7 +5,10 @@ export { default as yup } from "./yup.json";
 
 const hostName = window.location.hostname;
 
-const hostsProduction = ["aventurayromeosantos.club"];
+const hostsProduction = [
+  "aventurayromeosantos.club",
+  "aventura-y-romeo-santos-club",
+];
 
 const currentEnvironment = includes(hostsProduction, hostName)
   ? "production"

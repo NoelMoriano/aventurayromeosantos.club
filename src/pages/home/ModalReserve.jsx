@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { useDefaultFirestoreProps, useDevice, useFormUtils } from "../../hooks";
 import { common } from "../../config";
 import {
-  Alert,
   Button,
   Col,
   DatePicker,
@@ -28,7 +27,7 @@ import {
   fetchReservationByDni,
   getReservationId,
 } from "../../firebase/collections/reservations.js";
-import { capitalize, isEmpty } from "lodash";
+import { capitalize, isEmpty, omit } from "lodash";
 
 export const ModalReserve = ({
   visibleModalReserve,
@@ -38,6 +37,12 @@ export const ModalReserve = ({
 }) => {
   const { isMobile } = useDevice();
   const { assignCreateProps } = useDefaultFirestoreProps();
+
+  const bestPriceOffer = (ticketSelected?.reservations || [])
+    .filter((reservation) => reservation.priceOffer)
+    .reduce((prev, cur) => {
+      return +cur.priceOffer < +prev.priceOffer ? prev : cur;
+    }, 0);
 
   const [loadingContact, setLoadingContact] = useState(false);
 
@@ -64,6 +69,8 @@ export const ModalReserve = ({
     resolver: yupResolver(schema),
   });
 
+  console.log("bestPriceOffer: ", bestPriceOffer);
+
   const { required, error } = useFormUtils({ errors, schema });
 
   const onSubmitReservation = async (formData) => {
@@ -72,12 +79,15 @@ export const ModalReserve = ({
 
       if (
         formData?.priceOffer &&
-        +formData?.priceOffer <= +ticketSelected?.price
+        +formData?.priceOffer <=
+          (+bestPriceOffer === 0
+            ? +ticketSelected.price
+            : +bestPriceOffer.priceOffer)
       )
         return notification({
           type: "warning",
           title:
-            "No puedes ingresar un precio menor o igual al precio actual de la entrada",
+            "No puedes ingresar un precio menor o igual al mejor precio ofertado hasta el momento",
         });
 
       const reservation = await existsReservation(formData.dni);
@@ -104,7 +114,7 @@ export const ModalReserve = ({
     id: getReservationId(),
     dni: formData.dni,
     ticketId: ticketSelected.id,
-    ticket: ticketSelected,
+    ticket: omit(ticketSelected, "reservations"),
     firstName: formData.firstName.toLowerCase(),
     lastName: formData.lastName.toLowerCase(),
     email: formData.email.toLowerCase(),
@@ -217,12 +227,6 @@ export const ModalReserve = ({
             <div className="card-ticket-selected">
               <CardSelectedTicket ticket={ticketSelected} />
             </div>
-          </Col>
-          <Col span={24}>
-            <Alert
-              type="info"
-              message="Solo datos necesario para ponernos en contácto"
-            />
           </Col>
           <Col span={24}>
             <Controller
@@ -363,6 +367,15 @@ export const ModalReserve = ({
                 Este campo no es obligatorio, pero se le dara mayor prioridad a
                 el mejor postor
               </p>
+              <div className="best-price">
+                <div>Este es el mejor precio ofertado hasta el momento:</div>
+                <div>
+                  S/{" "}
+                  {+bestPriceOffer === 0
+                    ? ticketSelected?.price
+                    : bestPriceOffer.priceOffer}
+                </div>
+              </div>
               <Controller
                 name="priceOffer"
                 control={control}
@@ -436,11 +449,29 @@ const ModalComponent = styled(Modal)`
     top: 2vh;
   }
 
+  .best-price {
+    width: 100%;
+    background: rgb(241 189 31 / 16%);
+    border: 1.5px solid #f0b811;
+    padding: 0.2em 1em;
+    border-radius: 0.6em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+    div:last-child {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: red;
+    }
+  }
+
   .sub-title {
     width: 100%;
     text-align: center;
     padding-bottom: 0.3em;
   }
+
   .ant-modal-content {
     border-radius: 1.2em;
     background-color: ${({ theme }) => lighten(0.09, "#eee")};
@@ -454,14 +485,17 @@ const ModalComponent = styled(Modal)`
         color: ${({ theme }) => theme.colors.font1};
         font-weight: 800;
         font-size: 1.3em;
+
         h2 {
           margin: 0;
         }
       }
     }
+
     .ant-modal-close {
       color: ${({ theme }) => theme.colors.font1};
     }
+
     .ant-modal-body {
       background-color: inherit;
     }

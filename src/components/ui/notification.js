@@ -16,7 +16,7 @@ export const notification = ({
   type,
   title,
   description,
-  placement = "bottomLeft",
+  placement = "topLeft",
   duration = 5,
   key,
   icon,

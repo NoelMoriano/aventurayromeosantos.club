@@ -5,7 +5,11 @@ import { CardTicket } from "./CardTicket";
 import { isEmpty } from "lodash";
 import { CardTicketSkeleton } from "./CardTicketSkeleton.jsx";
 
-export const Tickets = ({ tickets = [] }) => {
+export const Tickets = ({
+  tickets = [],
+  onSetVisibleModalReserve,
+  onSetTicketSelected,
+}) => {
   return (
     <Container id="tickets">
       <h2>Entradas (Tickets)</h2>
@@ -23,7 +27,13 @@ export const Tickets = ({ tickets = [] }) => {
               <CardTicketSkeleton />
             </>
           ) : (
-            tickets.map((ticket) => <CardTicket ticket={ticket} />)
+            tickets.map((ticket) => (
+              <CardTicket
+                ticket={ticket}
+                onSetVisibleModalReserve={onSetVisibleModalReserve}
+                onSetTicketSelected={onSetTicketSelected}
+              />
+            ))
           )}
         </ul>
       </div>

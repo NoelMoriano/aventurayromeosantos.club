@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import dayjs from "dayjs";
 
-export const CardTicket = ({ ticket }) => {
-  console.log("ticket?.concertDate: ", ticket?.concertDate);
-
+export const CardTicket = ({
+  ticket,
+  onSetVisibleModalReserve,
+  onSetTicketSelected,
+}) => {
   return (
     <Container color={ticket?.color}>
       <div className="header">
@@ -30,7 +32,15 @@ export const CardTicket = ({ ticket }) => {
         </div>
       </div>
       <div className="body">
-        <button className="btn-reserve-ticket">Reservar</button>
+        <button
+          className="btn-reserve-ticket"
+          onClick={() => {
+            onSetVisibleModalReserve(true);
+            return onSetTicketSelected(ticket);
+          }}
+        >
+          Reservar
+        </button>
         <div className="users-list">
           <div className="title">Lista en espera</div>
           <ul className="list">

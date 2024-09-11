@@ -41,7 +41,7 @@ export const theme = {
     primary: "#090B0D",
     secondary: "#282828",
     tertiary: "#6f7a7d",
-    quaternary: "#B6E6EE",
+    quaternary: "#E9F9FFFF",
 
     font1: "#090B0D",
     font2: "#282828",

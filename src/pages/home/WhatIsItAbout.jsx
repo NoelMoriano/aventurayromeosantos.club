@@ -6,7 +6,7 @@ import { Avatar } from "../../images/index.js";
 export const WhatIsItAbout = () => {
   return (
     <Container id="what-is-it-about">
-      <h1>Compra tus entradas de una manera segura y fiable</h1>
+      <h2>Adquiere tu entrada de una manera segura, comprobada y fiable</h2>
 
       <div className="first-section">
         <div className="item-img">
@@ -28,8 +28,8 @@ export const WhatIsItAbout = () => {
               <span className="tag">Paso 1</span>
             </div>
             <p>
-              Nos presentamos y nos conocemos por Google Meet para coordinar el
-              proceso para la reserva e intercambiar datos.
+              Nos presentamos y nos conocemos por Google Meet, además te
+              mostraré mi cuenta en teleticket para mostrarte su legitimidad.
             </p>
           </li>
           <li className="card-item">
@@ -37,8 +37,8 @@ export const WhatIsItAbout = () => {
               <span className="tag">Paso 2</span>
             </div>
             <p>
-              Tu reserva se registrara en la base de datos y asi asegurarte con
-              tus entradas.
+              Tu reserva se registrará y así asegurarás tu entrada para el
+              concierto.
             </p>
           </li>
           <li className="card-item">
@@ -46,8 +46,10 @@ export const WhatIsItAbout = () => {
               <span className="tag">Paso 3</span>
             </div>
             <p>
-              La transacción del pago sera el mismo dia antes de ingresar, para
+              La transacción del pago será el mismo día antes de ingresar, para
               darte la seguridad.
+              <br />
+              <small>* No se acepta efectivo</small>
             </p>
           </li>
         </ul>

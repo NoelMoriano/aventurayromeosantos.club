@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
-import { breakPoints } from "../styles/breakPoints";
+import { breakPoints } from "../styles";
 
 export const useDevice = () => {
   const [currentScreenWidth, setCurrentScreenWidth] = useState(
-    window.innerWidth
+    window.innerWidth,
   );
   const [currentScreenHeight, setCurrentScreenHeight] = useState(
-    window.innerHeight
+    window.innerHeight,
   );
 
   useMemo(() => {

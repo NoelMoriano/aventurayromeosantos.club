@@ -13,6 +13,7 @@ export const SectionMessage = () => {
         </p>
       </div>
       <div className="right-item">
+        <p>Entradas 100% legitiamas de</p>
         <img src={TeleticketBlanco} alt="aventura entradas" />
         <FontAwesomeIcon icon={faTicket} size="lg" className="icon" />
       </div>
@@ -52,6 +53,7 @@ const Container = styled.div`
       left: 40%;
       color: #875f32e8;
     }
+    p,
     img {
       position: relative;
       z-index: 500;

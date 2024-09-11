@@ -14,9 +14,8 @@ export const Tickets = ({
     <Container id="tickets">
       <h2>Entradas (Tickets)</h2>
       <p className="description">
-        Recordar que solo son <strong>6 entradas</strong> disponibles,{" "}
-        <strong>4 VIPS</strong> y <strong>2 Generales</strong> con distintas
-        fechas.
+        Disponibles <strong>4 VIPS</strong> y <strong>2 Generales</strong> con
+        distintas fechas.
       </p>
       <div className="tickets-items">
         <ul className="card-lists">

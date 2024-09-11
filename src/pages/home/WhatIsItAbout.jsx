@@ -16,8 +16,8 @@ export const WhatIsItAbout = () => {
           ¡Hola! Soy Noel Moriano, un profesional del desarrollo web. Tengo 6
           entradas disponibles para el concierto y busco venderlas de manera
           segura y fiable. La coordinación se realizará únicamente con personas
-          serias a través de Google Meet, y completaremos la transacción él
-          mismo día del evento. Cada vez que tenga nuevas entradas, esta será mi
+          serias a través de Google Meet y completaremos la transacción él mismo
+          día del evento. Cada vez que tenga nuevas entradas, esta será mi
           plataforma de ventas.
         </p>
       </div>
@@ -30,7 +30,7 @@ export const WhatIsItAbout = () => {
             </div>
             <p>
               Regístrate y nos reuniremos por Google Meet, además te mostraré mi
-              cuenta en teleticket para mostrarte su legitimidad.
+              cuenta en teleticket para probar su legitimidad.
             </p>
           </li>
           <li className="card-item">

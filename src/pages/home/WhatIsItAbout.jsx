@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/index.js";
-import { Avatar } from "../../images/index.js";
+import { MyAvatar } from "../../images/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
@@ -16,7 +16,7 @@ export const WhatIsItAbout = () => {
 
       <div className="first-section">
         <div className="item-img">
-          <img src={Avatar} alt="aventura foto" />
+          <img src={MyAvatar} alt="aventura foto" />
         </div>
         <p className="description">
           ¡Hola! Soy Noel Moriano, un profesional del desarrollo web. Tengo 6
@@ -101,8 +101,10 @@ const Container = styled.div`
     .item-img {
       img {
         border-radius: 50%;
-        width: 7em;
-        height: 7em;
+        width: 8em;
+        height: 8em;
+        object-fit: cover;
+        border: 5px solid #444;
       }
     }
     .description {

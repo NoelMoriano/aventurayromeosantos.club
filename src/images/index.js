@@ -15,3 +15,6 @@ export { default as TeleticketBlanco } from "./teleticket_blanco.png";
 export { default as VideoAventura } from "./video-aventura.jpg";
 export { default as Avatar } from "./avatar.webp";
 export { default as PrincipalBanner } from "./banner.webp";
+export { default as Photo1 } from "./foto1.webp";
+export { default as Photo2 } from "./foto2.webp";
+export { default as MyAvatar } from "./my-avatar.webp";

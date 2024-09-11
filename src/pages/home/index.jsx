@@ -8,6 +8,7 @@ import { SpotifyIframe } from "./SpotifyIframe.jsx";
 import { MapaComponent } from "./MapaComponent.jsx";
 import { useGlobalData } from "../../providers/index.js";
 import { ModalReserve } from "./ModalReserve.jsx";
+import { Gallery } from "./Gallery.jsx";
 
 export const Home = () => {
   const { ticketsWithReservations } = useGlobalData();
@@ -24,6 +25,7 @@ export const Home = () => {
         onSetVisibleModalReserve={setVisibleModalReserve}
         onSetTicketSelected={setTicketSelected}
       />
+      <Gallery />
       <MapaComponent />
       <SpotifyIframe />
       <ModalReserve

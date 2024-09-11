@@ -113,7 +113,7 @@ export const ModalReserve = ({
     timeToMeet: isMobile
       ? formData.timeToMeet
       : dayjs(formData.timeToMeet).format("HH:mm"),
-    priceOffer: formData?.priceOffer || "",
+    priceOffer: +formData?.priceOffer || "",
     message: formData?.message || "",
   });
 

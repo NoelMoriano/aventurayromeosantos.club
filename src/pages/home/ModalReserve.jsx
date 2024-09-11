@@ -69,8 +69,6 @@ export const ModalReserve = ({
     resolver: yupResolver(schema),
   });
 
-  console.log("bestPriceOffer: ", bestPriceOffer);
-
   const { required, error } = useFormUtils({ errors, schema });
 
   const onSubmitReservation = async (formData) => {

@@ -59,12 +59,24 @@ export const CardTicket = ({
                   "desc",
                 ).map((ticketWithReservation, index) => (
                   <li key={index + 1}>
-                    <div className="name">
+                    <div className="left-item">
                       <div className="number-item">{index + 1}</div>
-                      <span>
-                        {ticketWithReservation.firstName}{" "}
-                        {ticketWithReservation.lastName.split(" ")?.[0] || ""}
-                      </span>
+                      <div className="name-and-date">
+                        <div>
+                          <span>
+                            {ticketWithReservation.firstName}{" "}
+                            {ticketWithReservation.lastName.split(" ")?.[0] ||
+                              ""}
+                          </span>
+                        </div>
+                        <div className="create-at">
+                          {ticketWithReservation?.createAt
+                            ? dayjs(
+                                ticketWithReservation.createAt.toDate(),
+                              ).format("DD/MM/YYYY")
+                            : ""}
+                        </div>
+                      </div>
                     </div>
                     <div className="price-and-status">
                       <div className="status">
@@ -185,31 +197,55 @@ const Container = styled.li`
 
         li {
           width: 100%;
-          display: flex;
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr;
           flex-wrap: wrap;
           justify-content: space-between;
           border-bottom: 1px solid #eee;
-          padding: 0.5em 0;
+          padding: 0.4em 0.5em;
+          border-radius: 0.5em;
+          margin-bottom: 0.5em;
 
-          .name {
+          ${mediaQuery.minDesktop} {
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr 1fr;
+          }
+
+          &:hover {
+            background: aliceblue;
+          }
+
+          .left-item {
             display: flex;
+            justify-content: start;
+            align-items: center;
             gap: 1em;
-            text-transform: capitalize;
-            width: 100%;
 
             .number-item {
-              width: 1.7em;
-              height: 1.7em;
+              width: 2em;
+              height: 2em;
               border-radius: 50%;
               padding: 0.3em;
               background: black;
               color: #fff;
-              font-size: 0.8em;
+              font-size: 0.7em;
+              font-weight: 600;
+            }
+
+            .name-and-date {
+              gap: 1em;
+              text-transform: capitalize;
+              text-align: start;
+
+              .create-at {
+                font-size: 0.8em;
+                color: #a6a6a6;
+              }
             }
           }
 
           .price-and-status {
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: end;
@@ -220,12 +256,16 @@ const Container = styled.li`
               border-radius: 1em;
               font-size: 0.6em;
               margin: 0;
+              height: 2em;
+              display: flex;
+              align-items: center;
             }
 
             .price-offer {
               color: red;
               font-size: 1em;
               margin-top: 0.3em;
+              text-align: right;
             }
           }
         }

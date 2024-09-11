@@ -37,7 +37,7 @@ export const ModalReserve = ({
   ticketSelected,
 }) => {
   const { isMobile } = useDevice();
-  const { assignDeleteProps } = useDefaultFirestoreProps();
+  const { assignCreateProps } = useDefaultFirestoreProps();
 
   const [loadingContact, setLoadingContact] = useState(false);
 
@@ -87,7 +87,7 @@ export const ModalReserve = ({
           title: "Lo siento no puedes volver a usar el mismo DNI",
         });
 
-      await addReservation(assignDeleteProps(mapReservationData(formData)));
+      await addReservation(assignCreateProps(mapReservationData(formData)));
 
       notification({ type: "success", title: "Registrado exitosamente" });
       resetReservationData();

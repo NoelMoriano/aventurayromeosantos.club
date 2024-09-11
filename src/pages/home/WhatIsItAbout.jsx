@@ -14,11 +14,11 @@ export const WhatIsItAbout = () => {
         </div>
         <p className="description">
           ¡Hola! Soy Noel Moriano, un profesional del desarrollo web. Tengo 6
-          entradas disponibles para un concierto y busco venderlas de manera
-          segura. La coordinación se realizará únicamente con personas serias a
-          través de Google Meet, y completaremos la transacción él mismo día del
-          evento. Cada vez que tenga nuevas entradas, esta será mi plataforma de
-          ventas.
+          entradas disponibles para el concierto y busco venderlas de manera
+          segura y fiable. La coordinación se realizará únicamente con personas
+          serias a través de Google Meet, y completaremos la transacción él
+          mismo día del evento. Cada vez que tenga nuevas entradas, esta será mi
+          plataforma de ventas.
         </p>
       </div>
 

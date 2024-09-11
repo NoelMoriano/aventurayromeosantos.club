@@ -49,7 +49,7 @@ export const ModalReserve = ({
     phoneNumber: yup.string().min(9).max(9).required(),
     dateToMeet: yup.mixed().required(),
     timeToMeet: yup.mixed().required(),
-    priceOffer: yup.number().notRequired(),
+    priceOffer: yup.string().notRequired(),
     message: yup.string(),
   });
 

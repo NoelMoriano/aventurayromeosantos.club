@@ -151,6 +151,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     gap: 1em;
     ${mediaQuery.minTablet} {
+      padding: 1em 3em;
       justify-content: space-between;
     }
     a {

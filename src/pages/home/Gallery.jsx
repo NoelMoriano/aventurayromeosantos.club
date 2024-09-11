@@ -7,7 +7,7 @@ import { mediaQuery } from "../../styles/index.js";
 export const Gallery = () => {
   return (
     <Container>
-      <h2 className="title">Galeria de las entradas</h2>
+      <h2 className="title">Fotos de las entradas</h2>
       <div className="images-items">
         <Image.PreviewGroup className="preview-group">
           <Image src={Photo1} className="img" />

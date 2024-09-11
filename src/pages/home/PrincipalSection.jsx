@@ -9,29 +9,27 @@ import styled from "styled-components";
 import { mediaQuery } from "../../styles/index.js";
 
 export const PrincipalSection = () => {
-  const videoRef = useRef(null);
+  // const videoRef = useRef(null);
 
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    videoElement.muted = true;
-    videoElement.muted = false;
-    videoElement.play();
-
-    const timeout = setTimeout(() => {
-      if (videoElement) {
-        videoElement.muted = true;
-      }
-    }, 16000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+  // useEffect(() => {
+  //   const videoElement = videoRef.current;
+  //
+  //   videoElement.muted = false;
+  //   videoElement.play();
+  //
+  //   const timeout = setTimeout(() => {
+  //     if (videoElement) {
+  //       videoElement.muted = true;
+  //     }
+  //   }, 16000);
+  //
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
   return (
     <Container>
       <img src={Luz1} alt="aventura fondo" className="bg-luz" />
       <video
-        ref={videoRef}
         className="video-aventura"
         poster={VideoAventura}
         autoPlay

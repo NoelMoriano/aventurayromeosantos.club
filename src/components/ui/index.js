@@ -1,5 +1,5 @@
-import { Row, Col, Button, Result, Space, Skeleton, Alert } from "antd";
-export { Row, Col, Button, Result, Space, Skeleton, Alert };
+import { Row, Col, Button, Result, Space, Skeleton, Alert, Tag } from "antd";
+export { Row, Col, Button, Result, Space, Skeleton, Alert, Tag };
 
 export * from "./layout/BaseLayout.jsx";
 export * from "./Checkbox.jsx";

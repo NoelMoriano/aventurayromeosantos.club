@@ -10,7 +10,7 @@ import { useGlobalData } from "../../providers/index.js";
 import { ModalReserve } from "./ModalReserve.jsx";
 
 export const Home = () => {
-  const { tickets, users } = useGlobalData();
+  const { ticketsWithReservations } = useGlobalData();
   const [visibleModalReserve, setVisibleModalReserve] = useState(true);
   const [ticketSelected, setTicketSelected] = useState(null);
 
@@ -20,7 +20,7 @@ export const Home = () => {
       <WhatIsItAbout />
       <SectionMessage />
       <Tickets
-        tickets={tickets}
+        ticketsWithReservations={ticketsWithReservations}
         onSetVisibleModalReserve={setVisibleModalReserve}
         onSetTicketSelected={setTicketSelected}
       />

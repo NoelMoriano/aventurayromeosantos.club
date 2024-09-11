@@ -5,8 +5,7 @@ import { notification, Spinner } from "../components";
 import { orderBy } from "lodash";
 
 const GlobalDataContext = createContext({
-  tickets: [],
-  users: [],
+  ticketsWithReservations: [],
 });
 
 export const GlobalDataProvider = ({ children }) => {
@@ -14,13 +13,15 @@ export const GlobalDataProvider = ({ children }) => {
     firestore.collection("tickets").where("isDeleted", "==", false) || null,
   );
 
-  const [users = [], usersLoading, usersError] = useCollectionData(
-    firestore.collection("users").where("isDeleted", "==", false) || null,
-  );
+  const [reservations = [], reservationsLoading, reservationsError] =
+    useCollectionData(
+      firestore.collection("reservations").where("isDeleted", "==", false) ||
+        null,
+    );
 
-  const error = usersError || ticketsError;
+  const error = reservationsError || ticketsError;
 
-  const loading = usersLoading || ticketsLoading;
+  const loading = reservationsLoading || ticketsLoading;
 
   useEffect(() => {
     error && notification({ type: "error" });
@@ -31,8 +32,20 @@ export const GlobalDataProvider = ({ children }) => {
   return (
     <GlobalDataContext.Provider
       value={{
-        tickets: orderBy(tickets, (ticket) => [ticket.createAt], ["desc"]),
-        users: orderBy(users, (user) => [user.createAt], ["desc"]),
+        ticketsWithReservations: orderBy(
+          tickets.map((ticket) => ({
+            ...ticket,
+            reservations: orderBy(
+              reservations.filter(
+                (reservation) => reservation.ticketId === ticket.id,
+              ),
+              (reservation) => [reservation.createAt],
+              ["desc"],
+            ),
+          })),
+          (ticket) => [ticket.createAt],
+          ["desc"],
+        ),
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import { isEmpty } from "lodash";
 import { CardTicketSkeleton } from "./CardTicketSkeleton.jsx";
 
 export const Tickets = ({
-  tickets = [],
+  ticketsWithReservations = [],
   onSetVisibleModalReserve,
   onSetTicketSelected,
 }) => {
@@ -20,16 +20,16 @@ export const Tickets = ({
       </p>
       <div className="tickets-items">
         <ul className="card-lists">
-          {isEmpty(tickets) ? (
+          {isEmpty(ticketsWithReservations) ? (
             <>
               <CardTicketSkeleton />
               <CardTicketSkeleton />
               <CardTicketSkeleton />
             </>
           ) : (
-            tickets.map((ticket) => (
+            ticketsWithReservations.map((ticketWithReservation) => (
               <CardTicket
-                ticket={ticket}
+                ticketsWithReservations={ticketWithReservation}
                 onSetVisibleModalReserve={onSetVisibleModalReserve}
                 onSetTicketSelected={onSetTicketSelected}
               />
@@ -66,7 +66,7 @@ const Container = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.5em;
+      gap: 1em;
     }
   }
 `;

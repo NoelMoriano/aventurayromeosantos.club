@@ -13,11 +13,12 @@ export const WhatIsItAbout = () => {
           <img src={Avatar} alt="aventura foto" />
         </div>
         <p className="description">
-          Hola, soy un chico informatico que tiene a disponibilidad 6 entradas,
-          con esto solo busco realizar la venta de mis entradas de una manera
-          segura, la coordinación sera solo con personas serias por Google Meet
-          y se concluira el mismo dia del concierto, cada vez que tenga entradas
-          nuevas para conciertos esta sera mi prataforma para la venta.
+          ¡Hola! Soy Noel Moriano, un profesional del desarrollo web. Tengo 6
+          entradas disponibles para un concierto y busco venderlas de manera
+          segura. La coordinación se realizará únicamente con personas serias a
+          través de Google Meet, y completaremos la transacción él mismo día del
+          evento. Cada vez que tenga nuevas entradas, esta será mi plataforma de
+          ventas.
         </p>
       </div>
 
@@ -28,8 +29,8 @@ export const WhatIsItAbout = () => {
               <span className="tag">Paso 1</span>
             </div>
             <p>
-              Nos presentamos y nos conocemos por Google Meet, además te
-              mostraré mi cuenta en teleticket para mostrarte su legitimidad.
+              Regístrate y nos reuniremos por Google Meet, además te mostraré mi
+              cuenta en teleticket para mostrarte su legitimidad.
             </p>
           </li>
           <li className="card-item">
@@ -37,7 +38,7 @@ export const WhatIsItAbout = () => {
               <span className="tag">Paso 2</span>
             </div>
             <p>
-              Tu reserva se registrará y así asegurarás tu entrada para el
+              Tu reserva se registrará y así asegurarás tu entrada para él
               concierto.
             </p>
           </li>

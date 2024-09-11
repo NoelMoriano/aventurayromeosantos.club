@@ -2,33 +2,40 @@ import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import dayjs from "dayjs";
+import { isEmpty, orderBy } from "lodash";
+import { Tag } from "../../components";
 
 export const CardTicket = ({
-  ticket,
+  ticketsWithReservations,
   onSetVisibleModalReserve,
   onSetTicketSelected,
 }) => {
   return (
-    <Container color={ticket?.color}>
+    <Container color={ticketsWithReservations?.color}>
       <div className="header">
-        <div className="title">{ticket?.name}</div>
+        <div className="title">{ticketsWithReservations?.name}</div>
         <div className="color-type" />
-        <div className="ticket-price">S/ {ticket.price.toFixed(2)}</div>
+        <div className="ticket-price">
+          S/ {ticketsWithReservations.price.toFixed(2)}
+        </div>
 
         <div className="concert">
-          <div>{ticket?.concert}</div>
+          <div>{ticketsWithReservations?.concert}</div>
+
+          <div className="place">{ticketsWithReservations?.place}</div>
+        </div>
+
+        <div className="date-item">
           <div className="date">
-            {ticket?.concertDate
-              ? dayjs(ticket.concertDate.toDate())
+            {ticketsWithReservations?.concertDate
+              ? dayjs(ticketsWithReservations.concertDate.toDate())
                   .tz("America/Lima")
                   .format("DD/MM/YYYY")
               : "No found"}
           </div>
-        </div>
-
-        <div className="place-and-amount">
-          <div className="place">{ticket?.place}</div>
-          <div className="amount">Cantidad: {ticket?.amount}</div>
+          {/*<div className="amount">*/}
+          {/*  Cantidad: {ticketsWithReservations?.amount}*/}
+          {/*</div>*/}
         </div>
       </div>
       <div className="body">
@@ -36,32 +43,44 @@ export const CardTicket = ({
           className="btn-reserve-ticket"
           onClick={() => {
             onSetVisibleModalReserve(true);
-            return onSetTicketSelected(ticket);
+            return onSetTicketSelected(ticketsWithReservations);
           }}
         >
-          Reservar
+          Registrarme
         </button>
         <div className="users-list">
           <div className="title">Lista en espera</div>
           <ul className="list">
-            <li>
-              <div className="name">Noel moriano</div>
-              <div className="status">
-                <span className="item">Pendiente</span>
-              </div>
-            </li>
-            <li>
-              <div className="name">Noel moriano</div>
-              <div className="status">
-                <span className="item">Pendiente</span>
-              </div>
-            </li>
-            <li>
-              <div className="name">Noel moriano</div>
-              <div className="status">
-                <span className="item">Pendiente</span>
-              </div>
-            </li>
+            {isEmpty(ticketsWithReservations?.reservations)
+              ? "¡Aun no hay personas en espera, sé el primero y registrate!"
+              : orderBy(
+                  ticketsWithReservations?.reservations || [],
+                  (reservation) => reservation.priceOffer,
+                  "desc",
+                ).map((ticketWithReservation, index) => (
+                  <li key={index + 1}>
+                    <div className="name">
+                      <div className="number-item">{index + 1}</div>
+                      <span>
+                        {ticketWithReservation.firstName}{" "}
+                        {ticketWithReservation.lastName.split(" ")?.[0] || ""}
+                      </span>
+                    </div>
+                    <div className="price-and-status">
+                      <div className="status">
+                        <Tag className="tag-item" color="orange">
+                          Pendiente
+                        </Tag>
+                      </div>
+                      {ticketWithReservation?.priceOffer && (
+                        <div className="price-offer">
+                          <small>Precio ofertado: </small>
+                          <strong>S/ {ticketWithReservation.priceOffer}</strong>
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                ))}
           </ul>
         </div>
       </div>
@@ -77,7 +96,8 @@ const Container = styled.li`
   border-radius: 1.3em;
   background: #fff;
   color: #fff;
-  border: 1px solid #eee;
+  border: 1.5px solid #adb7bd77;
+
   ${mediaQuery.minDesktop} {
     width: calc(80% / 3);
   }
@@ -119,16 +139,22 @@ const Container = styled.li`
       color: red;
     }
 
-    .concert,
-    .place-and-amount {
+    .concert {
       display: flex;
       justify-content: space-between;
-      gap: 1em;
+    }
+
+    .date-item {
+      display: flex;
+      justify-content: center;
+      background: #c2c2c224;
+      font-size: 1.1em;
     }
   }
 
   .body {
     padding: 0 1em 1em 1em;
+
     .btn-reserve-ticket {
       border: none;
       font-size: 1.2em;
@@ -143,26 +169,64 @@ const Container = styled.li`
     .users-list {
       color: black;
       padding: 2em 1em 1em 1em;
+
       .title {
         font-size: 1.2em;
         font-weight: 700;
         margin-bottom: 1em;
       }
+
       .list {
         padding: 0;
         margin: 0;
         list-style: none;
         width: 100%;
+        font-size: 0.8em;
+
         li {
           width: 100%;
           display: flex;
+          flex-wrap: wrap;
           justify-content: space-between;
-          margin-bottom: 0.3em;
-          .item {
-            background: lightsteelblue;
-            padding: 0.2em 1em;
-            border-radius: 1em;
-            font-size: 0.8em;
+          border-bottom: 1px solid #eee;
+          padding: 0.5em 0;
+
+          .name {
+            display: flex;
+            gap: 1em;
+            text-transform: capitalize;
+            width: 100%;
+
+            .number-item {
+              width: 1.7em;
+              height: 1.7em;
+              border-radius: 50%;
+              padding: 0.3em;
+              background: black;
+              color: #fff;
+              font-size: 0.8em;
+            }
+          }
+
+          .price-and-status {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: start;
+
+            .tag-item {
+              padding: -2px 0.5em;
+              border-radius: 1em;
+              font-size: 0.6em;
+              margin: 0;
+            }
+
+            .price-offer {
+              color: red;
+              font-size: 1em;
+              margin-top: 0.3em;
+            }
           }
         }
       }

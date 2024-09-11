@@ -4,14 +4,24 @@ import { PrincipalSection } from "./PrincipalSection";
 import { WhatIsItAbout } from "./WhatIsItAbout.jsx";
 import { Tickets } from "./Tickets.jsx";
 import { SectionMessage } from "./SectionMessage.jsx";
+import { SpotifyIframe } from "./SpotifyIframe.jsx";
+import { MapaComponent } from "./MapaComponent.jsx";
+import { useGlobalData } from "../../providers/index.js";
 
 export const Home = () => {
+  const { tickets, users } = useGlobalData();
+
+  console.log("tickets: ", tickets);
+  console.log("users: ", users);
+
   return (
     <Container>
       <PrincipalSection />
       <WhatIsItAbout />
       <SectionMessage />
-      <Tickets />
+      <Tickets tickets={tickets} />
+      <MapaComponent />
+      <SpotifyIframe />
     </Container>
   );
 };

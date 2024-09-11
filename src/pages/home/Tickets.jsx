@@ -2,124 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import { CardTicket } from "./CardTicket";
+import { isEmpty } from "lodash";
+import { CardTicketSkeleton } from "./CardTicketSkeleton.jsx";
 
-export const Tickets = () => {
+export const Tickets = ({ tickets = [] }) => {
   return (
     <Container id="tickets">
       <h2>Entradas (Tickets)</h2>
       <p className="description">
-        Recordar que solo son 6 entradas disponibles, 3 VIPS y 3 Generales con
-        distintas fechas.
+        Recordar que solo son <strong>6 entradas</strong> disponibles,{" "}
+        <strong>4 VIPS</strong> y <strong>2 Generales</strong> con distintas
+        fechas.
       </p>
-
       <div className="tickets-items">
         <ul className="card-lists">
-          <CardTicket />
-          {/*<li className="card-item">*/}
-          {/*  <div className="header">*/}
-          {/*    <div className="title">VIP</div>*/}
-          {/*    <div className="color-type"></div>*/}
-          {/*    <div className="concert">AVENTURA EN LIMA</div>*/}
-          {/*    <div className="date">16/10/2024</div>*/}
-          {/*    <div className="place">Estadio Nacional</div>*/}
-          {/*  </div>*/}
-          {/*  <div className="body">*/}
-          {/*    <button className="btn-reserve-ticket">Reservar</button>*/}
-          {/*    <div className="users-list">*/}
-          {/*      <div className="title">Lista en espera para reunion</div>*/}
-          {/*      <ul className="list">*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*      </ul>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</li>*/}
-          {/*<li className="card-item">*/}
-          {/*  <div className="header">*/}
-          {/*    <div className="title">VIP</div>*/}
-          {/*    <div className="color-type"></div>*/}
-          {/*    <div className="concert">AVENTURA EN LIMA</div>*/}
-          {/*    <div className="date">17/10/2024</div>*/}
-          {/*    <div className="place">Estadio Nacional</div>*/}
-          {/*  </div>*/}
-          {/*  <div className="body">*/}
-          {/*    <button className="btn-reserve-ticket">Reservar</button>*/}
-          {/*    <div className="users-list">*/}
-          {/*      <div className="title">Lista en espera para reunion</div>*/}
-          {/*      <ul className="list">*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*      </ul>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</li>*/}
-          {/*<li className="card-item">*/}
-          {/*  <div className="header">*/}
-          {/*    <div className="title">GENERAL</div>*/}
-          {/*    <div className="color-type"></div>*/}
-          {/*    <div className="concert">AVENTURA EN LIMA</div>*/}
-          {/*    <div className="date">17/10/2024</div>*/}
-          {/*    <div className="place">Estadio Nacional</div>*/}
-          {/*  </div>*/}
-          {/*  <div className="body">*/}
-          {/*    <button className="btn-reserve-ticket">Reservar</button>*/}
-          {/*    <div className="users-list">*/}
-          {/*      <div className="title">Lista en espera para reunion</div>*/}
-          {/*      <ul className="list">*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*        <li>*/}
-          {/*          <div className="name">Noel moriano</div>*/}
-          {/*          <div className="status">*/}
-          {/*            <span className="item">Pendiente</span>*/}
-          {/*          </div>*/}
-          {/*        </li>*/}
-          {/*      </ul>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</li>*/}
+          {isEmpty(tickets) ? (
+            <>
+              <CardTicketSkeleton />
+              <CardTicketSkeleton />
+              <CardTicketSkeleton />
+            </>
+          ) : (
+            tickets.map((ticket) => <CardTicket ticket={ticket} />)
+          )}
         </ul>
       </div>
     </Container>

@@ -74,8 +74,10 @@ const Container = styled.div`
     gap: 1.5em;
     margin: 1em auto;
     ${mediaQuery.minDesktop} {
+      display: flex;
       text-align: left;
       justify-content: space-around;
+      flex-wrap: nowrap;
       width: 50%;
     }
     .item-img {

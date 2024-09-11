@@ -1,27 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles";
+import dayjs from "dayjs";
 
 export const CardTicket = ({ ticket }) => {
+  console.log("ticket?.concertDate: ", ticket?.concertDate);
+
   return (
-    <Container>
+    <Container color={ticket?.color}>
       <div className="header">
-        <div className="title">VIP</div>
+        <div className="title">{ticket?.name}</div>
         <div className="color-type" />
+        <div className="ticket-price">S/ {ticket.price.toFixed(2)}</div>
+
         <div className="concert">
-          <div>AVENTURA EN LIMA</div>
-          <div className="date">16/10/2024</div>
+          <div>{ticket?.concert}</div>
+          <div className="date">
+            {ticket?.concertDate
+              ? dayjs(ticket.concertDate.toDate())
+                  .tz("America/Lima")
+                  .format("DD/MM/YYYY")
+              : "No found"}
+          </div>
         </div>
 
         <div className="place-and-amount">
-          <div className="place">Estadio Nacional</div>
-          <div className="amount">Cantidad: 2</div>
+          <div className="place">{ticket?.place}</div>
+          <div className="amount">Cantidad: {ticket?.amount}</div>
         </div>
       </div>
       <div className="body">
         <button className="btn-reserve-ticket">Reservar</button>
         <div className="users-list">
-          <div className="title">Lista en espera para reunion</div>
+          <div className="title">Lista en espera</div>
           <ul className="list">
             <li>
               <div className="name">Noel moriano</div>
@@ -87,9 +98,17 @@ const Container = styled.li`
 
     .color-type {
       width: 100%;
-      height: 0.5em;
-      background: #deae01;
+      height: 0.3em;
+      background: ${({ color }) => color};
     }
+
+    .ticket-price {
+      font-size: 1.7em;
+      font-weight: bold;
+      text-align: center;
+      color: red;
+    }
+
     .concert,
     .place-and-amount {
       display: flex;

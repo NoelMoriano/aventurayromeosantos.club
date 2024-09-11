@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { LogoFooter, Luz1 } from "../../../images/index.js";
-import { mediaQuery } from "../../../styles/index.js";
+import { LogoFooter } from "../../../images";
+import { mediaQuery } from "../../../styles";
 
 export const FooterLayout = () => {
   return (
@@ -86,6 +86,18 @@ export const FooterLayout = () => {
           </li>
         </ul>
       </div>
+      <div className="footer-bottom">
+        <p>
+          Esta pagina esta excluida de teletickets, fue creada solo para la
+          reventa de mis entradas
+        </p>
+        <p>
+          Desarrollado por{" "}
+          <a href="https://www.facebook.com/enedev01/" target="_blank">
+            Noel Mariano
+          </a>
+        </p>
+      </div>
     </Container>
   );
 };
@@ -93,7 +105,6 @@ export const FooterLayout = () => {
 const Container = styled.div`
   width: 100%;
   height: auto;
-  padding: 1.5em 1em;
   font-size: 0.8em;
   text-align: center;
 
@@ -113,6 +124,7 @@ const Container = styled.div`
   .description {
     width: 90%;
     margin: auto;
+    padding: 1.5em 1em;
 
     ${mediaQuery.minDesktop} {
       width: 70%;
@@ -128,6 +140,21 @@ const Container = styled.div`
         margin-bottom: 0.5em;
         font-weight: 100;
       }
+    }
+  }
+
+  .footer-bottom {
+    background: rgb(19 19 19);
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    ${mediaQuery.minTablet} {
+      justify-content: space-between;
+    }
+    a {
+      color: #fff;
     }
   }
 `;

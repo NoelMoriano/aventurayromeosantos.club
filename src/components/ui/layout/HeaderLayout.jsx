@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { mediaQuery } from "../../../styles";
 
 export const HeaderLayout = () => {
   return (
@@ -34,7 +35,10 @@ const Container = styled.div`
     gap: 2em;
     list-style: none;
     font-family: "Oswald", sans-serif;
-    font-size: 1.1em;
+    font-size: 1em;
+    ${mediaQuery.minTablet} {
+      font-size: 1.1em;
+    }
     li a {
       color: #fff;
       text-decoration: none;

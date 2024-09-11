@@ -1,0 +1,39 @@
+{
+  "common": {
+    "googleAnalytics": {
+      "measurementId": "G-QWHCXASDSF8DRFSYY0"
+    },
+    "apisNet": {
+      "apiUrl": "https://api.apis.net.pe/v2/reniec",
+      "token": "apis-token-10430.teWf1KXQOLUVh47nm0vABWzrYqN4W-zN"
+    }
+  },
+  "development": {
+    "version": "0.0.1",
+    "firebaseApp": {
+      "apiKey": "AIzaSyDYm2qNFSXMjsma-zhCQzHMX680anzzkLc",
+      "authDomain": "aventura-y-romeo-santos-club.firebaseapp.com",
+      "projectId": "aventura-y-romeo-santos-club",
+      "storageBucket": "aventura-y-romeo-santos-club.appspot.com",
+      "messagingSenderId": "990405169279",
+      "appId": "1:990405169279:web:630df68dd6a40ac03e6f4a",
+      "measurementId": "G-EPZ9WF3RY1"
+    },
+    "buckets": {},
+    "apiUrl": "-"
+  },
+  "production": {
+    "version": "0.0.1",
+    "firebaseApp": {
+      "apiKey": "AIzaSyDYm2qNFSXMjsma-zhCQzHMX680anzzkLc",
+      "authDomain": "aventura-y-romeo-santos-club.firebaseapp.com",
+      "projectId": "aventura-y-romeo-santos-club",
+      "storageBucket": "aventura-y-romeo-santos-club.appspot.com",
+      "messagingSenderId": "990405169279",
+      "appId": "1:990405169279:web:630df68dd6a40ac03e6f4a",
+      "measurementId": "G-EPZ9WF3RY1"
+    },
+    "buckets": {},
+    "apiUrl": "-"
+  }
+}

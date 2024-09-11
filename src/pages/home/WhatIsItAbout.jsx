@@ -2,6 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/index.js";
 import { Avatar } from "../../images/index.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faMoneyCheck,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const WhatIsItAbout = () => {
   return (
@@ -28,6 +34,9 @@ export const WhatIsItAbout = () => {
             <div className="top-header">
               <span className="tag">Paso 1</span>
             </div>
+            <div className="icon-item">
+              <FontAwesomeIcon icon={faUsers} className="icon" />
+            </div>
             <p>
               Regístrate y nos reuniremos por Google Meet, además te mostraré mi
               cuenta en teleticket para probar su legitimidad.
@@ -37,6 +46,9 @@ export const WhatIsItAbout = () => {
             <div className="top-header">
               <span className="tag">Paso 2</span>
             </div>
+            <div className="icon-item">
+              <FontAwesomeIcon icon={faCheck} className="icon" />
+            </div>
             <p>
               Tu reserva se registrará y así asegurarás tu entrada para él
               concierto.
@@ -45,6 +57,9 @@ export const WhatIsItAbout = () => {
           <li className="card-item">
             <div className="top-header">
               <span className="tag">Paso 3</span>
+            </div>
+            <div className="icon-item">
+              <FontAwesomeIcon icon={faMoneyCheck} className="icon" />
             </div>
             <p>
               La transacción del pago será el mismo día antes de ingresar, para
@@ -123,6 +138,11 @@ const Container = styled.div`
             padding: 0.2em 0.5em;
             font-weight: 600;
             font-size: 1.1em;
+          }
+        }
+        .icon-item {
+          .icon {
+            font-size: 3em;
           }
         }
 

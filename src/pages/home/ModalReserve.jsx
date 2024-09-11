@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDevice, useFormUtils } from "../../hooks";
-import { currentConfig } from "../../config";
+import { common } from "../../config";
 import {
+  Alert,
   Button,
   Col,
   DatePicker,
@@ -18,11 +19,16 @@ import {
   Row,
   TextArea,
   TimePicker,
-  Alert,
 } from "../../components";
 import { lighten } from "polished";
 import dayjs from "dayjs";
 import { CardSelectedTicket } from "./CardSelectedTicket.jsx";
+import {
+  addReservation,
+  fetchReservationByDni,
+  getReservationId,
+} from "../../firebase/collections/reservations.js";
+import { capitalize, isEmpty } from "lodash";
 
 export const ModalReserve = ({
   visibleModalReserve,
@@ -31,14 +37,14 @@ export const ModalReserve = ({
   ticketSelected,
 }) => {
   const { isMobile } = useDevice();
-
   const [loadingContact, setLoadingContact] = useState(false);
 
   const schema = yup.object({
+    dni: yup.string().min(8).max(8).required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     email: yup.string().email().required(),
-    phoneNumber: yup.number().required(),
+    phoneNumber: yup.string().min(9).max(9).required(),
     dateToMeet: yup.mixed().required(),
     timeToMeet: yup.mixed().required(),
     priceOffer: yup.number(),
@@ -50,6 +56,8 @@ export const ModalReserve = ({
     handleSubmit,
     control,
     reset,
+    watch,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -60,9 +68,20 @@ export const ModalReserve = ({
     try {
       setLoadingContact(true);
 
-      console.log("formData: ", formData);
+      const reservations = await fetchReservationByDni(formData.dni);
+      const reservation = reservations?.[0];
 
-      notification({ type: "success", title: "Enviado exitosamente" });
+      if (!isEmpty(reservation))
+        return notification({
+          type: "warning",
+          title: "Lo siento no puedes volver a usar el mismo DNI",
+        });
+
+      await addReservation(mapReservationData(formData));
+
+      notification({ type: "success", title: "Registrado exitosamente" });
+      resetReservationData();
+      onClickVisibleModalReserve(false);
     } catch (e) {
       console.log("Error email send:", e);
       notification({ type: "error", placement: "topLeft" });
@@ -71,39 +90,91 @@ export const ModalReserve = ({
     }
   };
 
-  const fetchSendEmail = async (contact) =>
-    await fetch(`${currentConfig.servitecSalesApiUrl}/emails/contact`, {
-      method: "POST",
+  const mapReservationData = (formData) => ({
+    id: getReservationId(),
+    dni: formData.dni,
+    ticketId: ticketSelected.id,
+    ticket: ticketSelected,
+    firstName: formData.firstName.toLowerCase(),
+    lastName: formData.lastName.toLowerCase(),
+    email: formData.email.toLowerCase(),
+    phoneNumber: formData.phoneNumber,
+    dateToMeet: dayjs(formData.dateToMeet).format("DD/MM/YYYY"),
+    timeToMeet: isMobile
+      ? formData.timeToMeet
+      : dayjs(formData.timeToMeet).format("HH:mm"),
+    priceOffer: formData?.priceOffer || "",
+    message: formData?.message || "",
+  });
+
+  const resetReservationData = () =>
+    reset({
+      dni: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      dateToMeet: undefined,
+      timeToMeet: undefined,
+      priceOffer: "",
+      message: "",
+    });
+
+  const userResetFields = (userOfApi) => {
+    setValue("firstName", capitalize(userOfApi?.firstName || ""));
+    setValue(
+      "lastName",
+      capitalize(
+        userOfApi?.paternalSurname
+          ? `${userOfApi?.paternalSurname} ${userOfApi?.maternalSurname}`
+          : "",
+      ),
+    );
+  };
+
+  const onFetchPersonDataByDni = async (dni = "") => {
+    return await fetch(`${common?.apisNet.apiUrl}/consults/dni/${dni}`, {
+      method: "GET",
       headers: {
         "Access-Control-Allow-Origin": null,
         "content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(contact),
     });
+  };
 
-  const mapContactData = (formData) => ({
-    contact: {
-      fullName: formData.fullName,
-      email: formData.email,
-      phone: {
-        number: formData.phoneNumber,
-        countryCode: formData.countryCode,
-      },
-      message: formData.message,
-      hostname: "factura.servitec.site",
-    },
-  });
+  useEffect(() => {
+    const dniFormData = watch("dni") || "";
+    const existsDni = (watch("dni") || "").length === 8;
+    if (existsDni) {
+      (async () => {
+        try {
+          const reservations = await fetchReservationByDni(dniFormData);
+          const reservation = reservations?.[0];
 
-  const resetContactData = () =>
-    reset({
-      firstName: "",
-      lastName: "",
-      email: "",
-      countryCode: "+51",
-      phoneNumber: "",
-      message: "",
-    });
+          if (!isEmpty(reservation))
+            return notification({
+              type: "warning",
+              title: "Lo siento no puedes volver a usar el mismo DNI",
+            });
+
+          const response = await onFetchPersonDataByDni(dniFormData);
+          if (!response.ok) {
+            throw new Error(response);
+          }
+
+          const userOfApi = await response.json();
+
+          userResetFields(userOfApi);
+        } catch (e) {
+          console.log("errorGetDni: ", e);
+          userResetFields(null);
+        }
+      })();
+    } else {
+      userResetFields(null);
+    }
+  }, [watch("dni")]);
 
   return (
     <ModalComponent
@@ -138,6 +209,24 @@ export const ModalReserve = ({
             <Alert
               type="info"
               message="Solo datos necesario para ponernos en contácto"
+            />
+          </Col>
+          <Col span={24}>
+            <Controller
+              name="dni"
+              control={control}
+              defaultValue=""
+              render={({ field: { onChange, value, name } }) => (
+                <Input
+                  type="number"
+                  label="Ingrese numero DNI"
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
+                />
+              )}
             />
           </Col>
           <Col xs={24} sm={24} md={12}>
@@ -262,7 +351,7 @@ export const ModalReserve = ({
                 el mejor postor
               </p>
               <Controller
-                name="priceOffered"
+                name="priceOffer"
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
                   <InputNumber

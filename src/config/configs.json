@@ -4,7 +4,7 @@
       "measurementId": "G-QWHCXASDSF8DRFSYY0"
     },
     "apisNet": {
-      "apiUrl": "https://api.apis.net.pe/v2/reniec",
+      "apiUrl": "https://practice-system.web.app/api",
       "token": "apis-token-10430.teWf1KXQOLUVh47nm0vABWzrYqN4W-zN"
     }
   },

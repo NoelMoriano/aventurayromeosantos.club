@@ -4,7 +4,7 @@ import { mediaQuery } from "../../styles";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDevice, useFormUtils } from "../../hooks";
+import { useDefaultFirestoreProps, useDevice, useFormUtils } from "../../hooks";
 import { common } from "../../config";
 import {
   Alert,
@@ -37,6 +37,8 @@ export const ModalReserve = ({
   ticketSelected,
 }) => {
   const { isMobile } = useDevice();
+  const { assignDeleteProps } = useDefaultFirestoreProps();
+
   const [loadingContact, setLoadingContact] = useState(false);
 
   const schema = yup.object({
@@ -47,7 +49,7 @@ export const ModalReserve = ({
     phoneNumber: yup.string().min(9).max(9).required(),
     dateToMeet: yup.mixed().required(),
     timeToMeet: yup.mixed().required(),
-    priceOffer: yup.number(),
+    priceOffer: yup.number().notRequired(),
     message: yup.string(),
   });
 
@@ -64,20 +66,28 @@ export const ModalReserve = ({
 
   const { required, error } = useFormUtils({ errors, schema });
 
-  const onSubmitFetchContacts = async (formData) => {
+  const onSubmitReservation = async (formData) => {
     try {
       setLoadingContact(true);
 
-      const reservations = await fetchReservationByDni(formData.dni);
-      const reservation = reservations?.[0];
+      if (
+        formData?.priceOffer &&
+        +formData?.priceOffer <= +ticketSelected?.price
+      )
+        return notification({
+          type: "warning",
+          title:
+            "No puedes ingresar un precio menor o igual al precio actual de la entrada",
+        });
 
+      const reservation = await existsReservation(formData.dni);
       if (!isEmpty(reservation))
         return notification({
           type: "warning",
           title: "Lo siento no puedes volver a usar el mismo DNI",
         });
 
-      await addReservation(mapReservationData(formData));
+      await addReservation(assignDeleteProps(mapReservationData(formData)));
 
       notification({ type: "success", title: "Registrado exitosamente" });
       resetReservationData();
@@ -149,9 +159,7 @@ export const ModalReserve = ({
     if (existsDni) {
       (async () => {
         try {
-          const reservations = await fetchReservationByDni(dniFormData);
-          const reservation = reservations?.[0];
-
+          const reservation = await existsReservation(dniFormData);
           if (!isEmpty(reservation))
             return notification({
               type: "warning",
@@ -176,6 +184,11 @@ export const ModalReserve = ({
     }
   }, [watch("dni")]);
 
+  const existsReservation = async (dni = "") => {
+    const reservations = await fetchReservationByDni(dni);
+    return reservations?.[0];
+  };
+
   return (
     <ModalComponent
       title={
@@ -198,7 +211,7 @@ export const ModalReserve = ({
       }}
       footer={null}
     >
-      <Form onSubmit={handleSubmit(onSubmitFetchContacts)}>
+      <Form onSubmit={handleSubmit(onSubmitReservation)}>
         <Row gutter={[16, 20]}>
           <Col span={24}>
             <div className="card-ticket-selected">

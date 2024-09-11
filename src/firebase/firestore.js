@@ -2,6 +2,8 @@ import { firebase } from "./index";
 
 export const firestoreTimestamp = firebase.firestore.Timestamp;
 export const firestoreFieldValue = firebase.firestore.FieldValue;
+export const now = () => firebase.firestore.Timestamp.now();
+
 //export const now = () => firebase.firestore.Timestamp.now();
 export const toTimestamp = ({ seconds, nanoseconds }) =>
   new firebase.firestore.Timestamp(seconds, nanoseconds);

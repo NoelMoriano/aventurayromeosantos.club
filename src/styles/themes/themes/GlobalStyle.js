@@ -18,6 +18,7 @@ const global = css`
     color: #fff;
     font-family: "PT Sans", sans-serif;
     font-size: 14px;
+    overflow-x: hidden;
     ${mediaQuery.minTablet} {
       font-size: 16px;
     }

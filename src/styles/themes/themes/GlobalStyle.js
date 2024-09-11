@@ -17,6 +17,10 @@ const global = css`
     background: #010409;
     color: #fff;
     font-family: "PT Sans", sans-serif;
+    font-size: 14px;
+    ${mediaQuery.minTablet} {
+      font-size: 16px;
+    }
   }
 
   .strong {

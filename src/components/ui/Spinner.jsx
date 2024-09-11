@@ -9,7 +9,7 @@ export const Spinner = ({
   size = "6x",
   message = null,
 }) => (
-  <Container fullscreen={fullscreen} height={height}>
+  <Container fullscreen={fullscreen.toString()} height={height}>
     <div className="item">
       <div>
         <IconStyled spin icon={faCircleNotch} size={size} />
@@ -26,7 +26,8 @@ export const Spinner = ({
 const Container = styled.section`
   ${({ fullscreen, height }) => css`
     width: 100%;
-    height: ${height || (fullscreen ? "100%" : " calc(100% - 90px)")};
+    height: ${height ||
+    (fullscreen === "true" ? "100%" : " calc(100% - 90px)")};
     opacity: 90%;
     display: grid;
     place-items: center;

@@ -26,8 +26,9 @@ export const Tickets = ({
               <CardTicketSkeleton />
             </>
           ) : (
-            ticketsWithReservations.map((ticketWithReservation) => (
+            ticketsWithReservations.map((ticketWithReservation, index) => (
               <CardTicket
+                key={index}
                 ticketsWithReservations={ticketWithReservation}
                 onSetVisibleModalReserve={onSetVisibleModalReserve}
                 onSetTicketSelected={onSetTicketSelected}

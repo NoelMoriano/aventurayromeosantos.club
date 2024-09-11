@@ -14,3 +14,4 @@ export { default as Partners } from "./partners.png";
 export { default as TeleticketBlanco } from "./teleticket_blanco.png";
 export { default as VideoAventura } from "./video-aventura.jpg";
 export { default as Avatar } from "./avatar.webp";
+export { default as PrincipalBanner } from "./banner.webp";

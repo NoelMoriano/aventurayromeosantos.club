@@ -203,7 +203,7 @@ export const ModalReserve = ({
         onSetTicketSelected(null);
         return onClickVisibleModalReserve();
       }}
-      visible={visibleModalReserve}
+      open={visibleModalReserve}
       onOk={() => onClickVisibleModalReserve()}
       onCancel={() => {
         onSetTicketSelected(null);

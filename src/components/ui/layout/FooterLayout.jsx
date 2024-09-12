@@ -96,7 +96,7 @@ export const FooterLayout = () => {
         </p>
         <p>
           Desarrollado por{" "}
-          <a href="https://www.facebook.com/enedev01/" target="_blank">
+          <a href="https://www.linkedin.com/in/nmoriano/" target="_blank">
             Noel Moriano {"<NDev/>"}
           </a>
         </p>

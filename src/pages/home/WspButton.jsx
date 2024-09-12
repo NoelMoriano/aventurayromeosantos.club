@@ -23,7 +23,7 @@ const Container = styled.div`
     background: #5cc753;
     color: white;
     position: fixed;
-    bottom: 1em;
+    bottom: 3.5em;
     right: 1em;
     border-radius: 7rem;
     display: flex;

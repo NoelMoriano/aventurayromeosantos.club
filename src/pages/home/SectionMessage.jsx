@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
-import { TeleticketBlanco } from "../../images/index.js";
+import { MyPhotoPortada2, TeleticketBlanco } from "../../images/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { mediaQuery } from "../../styles/index.js";
 
@@ -27,10 +27,19 @@ export const SectionMessage = () => {
 
 const Container = styled.div`
   width: 100%;
+  min-height: 17em;
   height: auto;
   padding: 2em;
   position: relative;
   overflow: hidden;
+  background-blend-mode: multiply;
+  background-size: cover;
+  background: rgba(0, 0, 0, 0.8) url(${MyPhotoPortada2}) 35% 51%;
+  display: grid;
+  place-items: center;
+  ${mediaQuery.minDesktop} {
+    background: rgba(0, 0, 0, 0.8) url(${MyPhotoPortada2}) 69% 51%;
+  }
 
   .content {
     display: flex;
@@ -48,24 +57,29 @@ const Container = styled.div`
 
   .left-item {
     font-size: 2em;
-
     p {
-      text-align: left;
+      text-align: center;
       position: relative;
       z-index: 500;
+      ${mediaQuery.minDesktop} {
+        text-align: left;
+      }
     }
   }
 
   .right-item {
     position: relative;
+    margin: 0 0 auto 0;
+
     .icon {
-      font-size: 10em;
+      font-size: 12em;
       transform: rotate(140deg);
       position: absolute;
-      top: -12px;
-      left: 40%;
+      top: -2rem;
+      left: 10%;
       color: #875f32e8;
     }
+
     p,
     img {
       position: relative;

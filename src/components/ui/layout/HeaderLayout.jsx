@@ -27,8 +27,11 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  padding: 1em;
+  padding: 1.3em 1em;
   z-index: 500;
+  ${mediaQuery.minTablet} {
+    padding: 2em 1em;
+  }
   ul {
     display: flex;
     justify-content: center;

@@ -18,3 +18,5 @@ export { default as PrincipalBanner } from "./banner.webp";
 export { default as Photo1 } from "./foto1.webp";
 export { default as Photo2 } from "./foto2.webp";
 export { default as MyAvatar } from "./my-avatar.webp";
+export { default as MyPhotoPortada } from "./my-photo-portada.webp";
+export { default as MyPhotoPortada2 } from "./my-photo-portada-2.webp";

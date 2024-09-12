@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { HeaderLayout } from "./HeaderLayout.jsx";
 import { FooterLayout } from "./FooterLayout.jsx";
+import { WspButton } from "../../../pages/home/WspButton.jsx";
 
 export const BaseLayout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ export const BaseLayout = ({ children }) => {
       <HeaderLayout />
       <main className="content">{children}</main>
       <FooterLayout />
+      <WspButton />
     </Container>
   );
 };

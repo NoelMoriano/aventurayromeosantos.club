@@ -52,7 +52,7 @@ export const CardTicket = ({
           <div className="title">Lista en espera</div>
           <ul className="list">
             {isEmpty(ticketsWithReservations?.reservations)
-              ? "¡Aun no hay personas en espera, sé el primero y registrate!"
+              ? "¡Aún no hay personas en espera, sé el primero y regístrate!"
               : orderBy(
                   ticketsWithReservations?.reservations || [],
                   (reservation) => reservation.priceOffer,

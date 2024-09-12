@@ -3,19 +3,23 @@ import styled from "styled-components";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
 import { TeleticketBlanco } from "../../images/index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { mediaQuery } from "../../styles/index.js";
 
 export const SectionMessage = () => {
   return (
     <Container>
-      <div className="left-item">
-        <p>
-          Solo son 6 entradas disponibles a la venta, no te quedes sin el tuyo
-        </p>
-      </div>
-      <div className="right-item">
-        <p>Entradas 100% legitiamas de</p>
-        <img src={TeleticketBlanco} alt="aventura entradas" />
-        <FontAwesomeIcon icon={faTicket} size="lg" className="icon" />
+      <div className="content">
+        <div className="left-item">
+          <p>
+            Son solo 6 entradas disponibles a la venta, no te pierdas el último
+            concierto de aventura
+          </p>
+        </div>
+        <div className="right-item">
+          <p>Entradas 100% legítimas de</p>
+          <img src={TeleticketBlanco} alt="aventura entradas" />
+          <FontAwesomeIcon icon={faTicket} size="lg" className="icon" />
+        </div>
       </div>
     </Container>
   );
@@ -25,19 +29,28 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   padding: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   position: relative;
   overflow: hidden;
-  gap: 2em;
-  flex-wrap: wrap;
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2em;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 90%;
+    ${mediaQuery.minDesktop} {
+      flex-wrap: nowrap;
+      width: 70%;
+    }
+  }
 
   .left-item {
     font-size: 2em;
-    text-align: center;
 
     p {
+      text-align: left;
       position: relative;
       z-index: 500;
     }

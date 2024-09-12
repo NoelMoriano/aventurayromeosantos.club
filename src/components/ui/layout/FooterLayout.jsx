@@ -88,13 +88,16 @@ export const FooterLayout = () => {
       </div>
       <div className="footer-bottom">
         <p>
-          Esta pagina esta excluida de teletickets, fue creada solo para la
-          reventa de mis entradas
+          <span>
+            Esta pagina esta excluida de teletickets, fue creada solo para la
+            reventa de mis entradas
+          </span>{" "}
+          <span>Valida solo para Perú 🇵🇪</span>
         </p>
         <p>
           Desarrollado por{" "}
           <a href="https://www.facebook.com/enedev01/" target="_blank">
-            Noel Mariano
+            Noel Moriano {"<NDev/>"}
           </a>
         </p>
       </div>
@@ -135,6 +138,7 @@ const Container = styled.div`
       padding: 0;
       list-style: none;
       text-align: justify;
+
       li {
         line-height: 1.333333;
         margin-bottom: 0.5em;
@@ -144,16 +148,29 @@ const Container = styled.div`
   }
 
   .footer-bottom {
-    background: rgb(19 19 19);
+    background: #070a0e;
     padding: 1em;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1em;
+
     ${mediaQuery.minTablet} {
       padding: 1em 3em;
       justify-content: space-between;
     }
+
+    p:first-child {
+      display: grid;
+      gap: 0.4em;
+      font-size: 0.9em;
+      text-align: center;
+
+      ${mediaQuery.minTablet} {
+        text-align: left;
+      }
+    }
+
     a {
       color: #fff;
     }

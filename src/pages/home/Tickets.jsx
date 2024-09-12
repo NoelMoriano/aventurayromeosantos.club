@@ -15,7 +15,8 @@ export const Tickets = ({
       <h2>Entradas (Tickets)</h2>
       <p className="description">
         Disponibles <strong>4 VIPS</strong> y <strong>2 Generales</strong> con
-        distintas fechas.
+        distintas fechas. <br />
+        <small>* Válida solo para Perú 🇵🇪</small>
       </p>
       <div className="tickets-items">
         <ul className="card-lists">

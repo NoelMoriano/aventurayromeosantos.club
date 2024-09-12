@@ -201,8 +201,8 @@ export const ModalReserve = ({
     <ModalComponent
       title={
         <div>
-          <h4 style={{ margin: "0", fontSize: "1.2em" }}>
-            ¡Registra tu reunion y reserva tu entrada ya!
+          <h4 style={{ margin: "0", fontSize: "1.1em" }}>
+            ¡Envia tu mejor oferta y reserva tu entrada ya!
           </h4>
         </div>
       }

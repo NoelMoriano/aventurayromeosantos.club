@@ -202,7 +202,7 @@ export const ModalReserve = ({
       title={
         <div>
           <h4 style={{ margin: "0", fontSize: "1.1em" }}>
-            ¡Envia tu mejor oferta y reserva tu entrada ya!
+            ¡Agenda tu cita y reserva tu entrada ya!
           </h4>
         </div>
       }

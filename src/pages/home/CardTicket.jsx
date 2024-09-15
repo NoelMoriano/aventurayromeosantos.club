@@ -61,7 +61,10 @@ export const CardTicket = ({
                   (reservation) => reservation.priceOffer,
                   "desc",
                 ).map((ticketWithReservation, index) => (
-                  <li key={index + 1}>
+                  <li
+                    key={index + 1}
+                    className={index + 1 <= 2 ? "is-top-two" : "normal"}
+                  >
                     <div className="left-item">
                       <div className="number-item">{index + 1}</div>
                       <div className="name-and-date">
@@ -206,6 +209,14 @@ const Container = styled.li`
         list-style: none;
         width: 100%;
         font-size: 0.8em;
+
+        .is-top-two {
+          background: rgba(216, 250, 238, 0.49);
+
+          &:hover {
+            background: rgba(216, 250, 238, 0.82);
+          }
+        }
 
         li {
           width: 100%;

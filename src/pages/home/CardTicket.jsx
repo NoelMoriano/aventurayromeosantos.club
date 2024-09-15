@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import dayjs from "dayjs";
 import { isEmpty, orderBy } from "lodash";
-import { Tag } from "../../components";
+import { Tag, Typography } from "../../components";
 
 export const CardTicket = ({
   ticketsWithReservations,
@@ -62,13 +62,14 @@ export const CardTicket = ({
                     <div className="left-item">
                       <div className="number-item">{index + 1}</div>
                       <div className="name-and-date">
-                        <div>
-                          <span>
-                            {ticketWithReservation.firstName}{" "}
-                            {ticketWithReservation.lastName.split(" ")?.[0] ||
-                              ""}
-                          </span>
-                        </div>
+                        <Typography.Text
+                          style={{ width: 110 }}
+                          ellipsis
+                          className="user-name"
+                        >
+                          {ticketWithReservation.firstName}{" "}
+                          {ticketWithReservation.lastName.split(" ")?.[0] || ""}
+                        </Typography.Text>
                         <div className="create-at">
                           {ticketWithReservation?.createAt
                             ? dayjs(
@@ -134,7 +135,7 @@ const Container = styled.li`
 
     .title {
       font-size: 1.7em;
-      font-weight: 800;
+      font-weight: bold;
       padding: 0.5em 1em;
     }
 
@@ -197,20 +198,13 @@ const Container = styled.li`
 
         li {
           width: 100%;
-          display: grid;
-          grid-template-rows: 1fr 1fr;
-          grid-template-columns: 1fr;
+          display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
           border-bottom: 1px solid #eee;
           padding: 0.4em 0.5em;
           border-radius: 0.5em;
           margin-bottom: 0.5em;
-
-          ${mediaQuery.minDesktop} {
-            grid-template-rows: 1fr;
-            grid-template-columns: 1fr 1fr;
-          }
 
           &:hover {
             background: aliceblue;
@@ -237,6 +231,10 @@ const Container = styled.li`
               gap: 1em;
               text-transform: capitalize;
               text-align: start;
+
+              .user-name {
+                font-size: 0.9em;
+              }
 
               .create-at {
                 font-size: 0.8em;

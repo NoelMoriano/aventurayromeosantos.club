@@ -10,6 +10,7 @@ import {
   TimePicker as TimePickerAntd,
   DatePicker as DatePickerAntd,
   Image,
+  Typography,
 } from "antd";
 export {
   Row,
@@ -23,6 +24,7 @@ export {
   TimePickerAntd,
   DatePickerAntd,
   Image,
+  Typography,
 };
 
 export * from "./layout/BaseLayout.jsx";

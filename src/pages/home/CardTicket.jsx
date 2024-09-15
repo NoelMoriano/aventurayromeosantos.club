@@ -50,6 +50,9 @@ export const CardTicket = ({
         </button>
         <div className="users-list">
           <div className="title">Lista en espera</div>
+          <div className="note">
+            <p>* Tendre reunion con los 2 primeros</p>
+          </div>
           <ul className="list">
             {isEmpty(ticketsWithReservations?.reservations)
               ? "¡Aún no hay personas en espera, sé el primero y regístrate!"
@@ -181,11 +184,19 @@ const Container = styled.li`
 
     .users-list {
       color: black;
-      padding: 2em 1em 1em 1em;
+      padding: 1em 0.7em;
+      background: rgba(247, 250, 253, 0.82);
+      margin: 1em auto;
+      border-radius: 1em;
 
       .title {
         font-size: 1.2em;
         font-weight: 700;
+      }
+
+      .note {
+        font-size: 0.9em;
+        color: red;
         margin-bottom: 1em;
       }
 
@@ -202,12 +213,12 @@ const Container = styled.li`
           flex-wrap: wrap;
           justify-content: space-between;
           border-bottom: 1px solid #eee;
-          padding: 0.4em 0.5em;
+          padding: 0.4em 0.4em;
           border-radius: 0.5em;
           margin-bottom: 0.5em;
 
           &:hover {
-            background: aliceblue;
+            background: rgb(219 200 151 / 37%);
           }
 
           .left-item {

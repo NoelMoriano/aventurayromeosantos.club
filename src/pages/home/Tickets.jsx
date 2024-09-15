@@ -16,7 +16,8 @@ export const Tickets = ({
       <p className="description">
         Disponibles <strong>4 VIPS</strong> y <strong>2 Generales</strong> con
         distintas fechas. <br />
-        <small>* Válida solo para Perú 🇵🇪</small>
+        <p>¡Tienes hasta el 27 de octubre para enviar tu mejor oferta!</p>
+        <small>* Válido solo para Perú 🇵🇪</small> <br />
       </p>
       <div className="tickets-items">
         <ul className="card-lists">
@@ -52,7 +53,7 @@ const Container = styled.div`
 
   .description {
     width: 90%;
-    margin: auto auto 3em auto;
+    margin: auto auto 2em auto;
     font-size: 1.1em;
 
     ${mediaQuery.minDesktop} {

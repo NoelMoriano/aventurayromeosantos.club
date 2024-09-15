@@ -417,6 +417,7 @@ export const ModalReserve = ({
               size="large"
               htmlType="submit"
               loading={loadingContact}
+              className="btn-send-reserve"
             >
               Enviar
             </Button>

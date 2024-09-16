@@ -4,11 +4,17 @@ import { mediaQuery } from "../../styles";
 import dayjs from "dayjs";
 import { isEmpty, orderBy } from "lodash";
 import { Tag, Typography } from "../../components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 
 export const CardTicket = ({
   ticketsWithReservations,
   onSetVisibleModalReserve,
   onSetTicketSelected,
+  modalsData,
+  setModalsData,
+  setIsVisibleModalRemove,
+  setIsVisibleModalEdit,
 }) => {
   return (
     <Container color={ticketsWithReservations?.color}>
@@ -18,13 +24,10 @@ export const CardTicket = ({
         <div className="ticket-price">
           S/ {ticketsWithReservations.price.toFixed(2)}
         </div>
-
         <div className="concert">
           <div>{ticketsWithReservations?.concert}</div>
-
           <div className="place">{ticketsWithReservations?.place}</div>
         </div>
-
         <div className="date-item">
           <div className="date">
             {ticketsWithReservations?.concertDate
@@ -63,10 +66,18 @@ export const CardTicket = ({
                 ).map((ticketWithReservation, index) => (
                   <li
                     key={index + 1}
-                    className={index + 1 <= 2 ? "is-top-two" : "normal"}
+                    className={index + 1 <= 2 ? "is-top-two" : "normal-item"}
+                    onMouseOver={() =>
+                      setModalsData({
+                        ticketWithReservations: ticketsWithReservations,
+                        user: ticketWithReservation,
+                      })
+                    }
                   >
                     <div className="left-item">
-                      <div className="number-item">{index + 1}</div>
+                      <div className="number">
+                        <div className="number-item">{index + 1}</div>
+                      </div>
                       <div className="name-and-date">
                         <Typography.Text
                           style={{ width: 110 }}
@@ -83,6 +94,23 @@ export const CardTicket = ({
                               ).format("DD/MM/YYYY")
                             : ""}
                         </div>
+                        {modalsData?.user?.dni ===
+                        ticketWithReservation?.dni ? (
+                          <div className="actions">
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="icon"
+                              onClick={() => setIsVisibleModalEdit(true)}
+                            />
+                            <FontAwesomeIcon
+                              icon={faRemove}
+                              className="icon"
+                              onClick={() => setIsVisibleModalRemove(true)}
+                            />
+                          </div>
+                        ) : (
+                          <div className="actions" />
+                        )}
                       </div>
                     </div>
                     <div className="price-and-status">
@@ -227,6 +255,10 @@ const Container = styled.li`
           padding: 0.4em 0.4em;
           border-radius: 0.5em;
           margin-bottom: 0.5em;
+          ${mediaQuery.minMobile} {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+          }
 
           &:hover {
             background: rgb(219 200 151 / 37%);
@@ -238,15 +270,26 @@ const Container = styled.li`
             align-items: center;
             gap: 1em;
 
-            .number-item {
-              width: 2em;
-              height: 2em;
-              border-radius: 50%;
-              padding: 0.3em;
-              background: black;
-              color: #fff;
-              font-size: 0.7em;
-              font-weight: 600;
+            .number {
+              .number-item {
+                width: 1.9em;
+                height: 1.9em;
+                border-radius: 50%;
+                padding: 0.4em;
+                background: black;
+                color: #fff;
+                font-size: 0.6em;
+                font-weight: 600;
+              }
+            }
+            .actions {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.7em;
+              font-size: 1.1em;
+              .icon {
+                cursor: pointer;
+              }
             }
 
             .name-and-date {

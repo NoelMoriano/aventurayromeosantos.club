@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles";
 import { CardTicket } from "./CardTicket";
 import { isEmpty } from "lodash";
 import { CardTicketSkeleton } from "./CardTicketSkeleton.jsx";
+import { ModalReserveRemove } from "./ModalReserveRemove.jsx";
+import { ModalReserveEdit } from "./ModalReserveEdit.jsx";
 
 export const Tickets = ({
   ticketsWithReservations = [],
   onSetVisibleModalReserve,
   onSetTicketSelected,
 }) => {
+  const [modalsData, setModalsData] = useState(null);
+  const [isVisibleModalRemove, setIsVisibleModalRemove] = useState(false);
+  const [isVisibleModalEdit, setIsVisibleModalEdit] = useState(false);
+
   return (
     <Container id="tickets">
       <h2>Entradas (Tickets)</h2>
@@ -34,11 +40,27 @@ export const Tickets = ({
                 ticketsWithReservations={ticketWithReservation}
                 onSetVisibleModalReserve={onSetVisibleModalReserve}
                 onSetTicketSelected={onSetTicketSelected}
+                modalsData={modalsData}
+                setModalsData={setModalsData}
+                setIsVisibleModalRemove={setIsVisibleModalRemove}
+                setIsVisibleModalEdit={setIsVisibleModalEdit}
               />
             ))
           )}
         </ul>
       </div>
+      <ModalReserveRemove
+        visibleModal={isVisibleModalRemove}
+        onClickVisibleModal={setIsVisibleModalRemove}
+        modalsData={modalsData}
+        setModalsData={setModalsData}
+      />
+      <ModalReserveEdit
+        visibleModal={isVisibleModalEdit}
+        onClickVisibleModal={setIsVisibleModalEdit}
+        modalsData={modalsData}
+        setModalsData={setModalsData}
+      />
     </Container>
   );
 };

@@ -101,7 +101,7 @@ export const ModalReserve = ({
       resetReservationData();
       onClickVisibleModalReserve(false);
     } catch (e) {
-      console.log("Error email send:", e);
+      console.log("Error save reserve:", e);
       notification({ type: "error", placement: "topLeft" });
     } finally {
       setLoadingContact(false);

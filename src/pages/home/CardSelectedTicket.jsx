@@ -16,7 +16,9 @@ export const CardSelectedTicket = ({ ticket }) => {
         </div>
         <div>{ticket?.place}</div>
       </div>
-      <div className="right-item">S/ {ticket?.price.toFixed(2)}</div>
+      <div className="right-item">
+        S/ {ticket?.price ? ticket.price.toFixed(2) : 0}
+      </div>
     </Container>
   );
 };

@@ -48,7 +48,6 @@ export const ModalReserveEdit = ({
     control,
     reset,
     watch,
-    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -89,7 +88,10 @@ export const ModalReserveEdit = ({
             "No puedes ingresar un precio menor o igual al mejor precio ofertado hasta el momento",
         });
 
-      await updateReservation(modalsData.user.id, assignUpdateProps(formData));
+      await updateReservation(
+        modalsData.user.id,
+        assignUpdateProps({ ...formData, priceOffer: +formData.priceOffer }),
+      );
       notification({ type: "success", title: "Actualización exitosa" });
       resetData();
       onClickVisibleModal(false);

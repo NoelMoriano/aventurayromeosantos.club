@@ -39,6 +39,7 @@ export const ModalReserveEdit = ({
 
   const schema = yup.object({
     dni: yup.string().min(8).max(8).required(),
+    priceOffer: yup.string().required(),
   });
 
   const {

@@ -8,6 +8,7 @@ import { ModalReserveRemove } from "./ModalReserveRemove.jsx";
 import { ModalReserveEdit } from "./ModalReserveEdit.jsx";
 
 export const Tickets = ({
+  loadingData,
   ticketsWithReservations = [],
   onSetVisibleModalReserve,
   onSetTicketSelected,
@@ -27,7 +28,7 @@ export const Tickets = ({
       </p>
       <div className="tickets-items">
         <ul className="card-lists">
-          {isEmpty(ticketsWithReservations) ? (
+          {loadingData || isEmpty(ticketsWithReservations) ? (
             <>
               <CardTicketSkeleton />
               <CardTicketSkeleton />

@@ -11,7 +11,7 @@ import { ModalReserve } from "./ModalReserve.jsx";
 import { Gallery } from "./Gallery.jsx";
 
 export const Home = () => {
-  const { ticketsWithReservations } = useGlobalData();
+  const { loadingData, ticketsWithReservations } = useGlobalData();
   const [visibleModalReserve, setVisibleModalReserve] = useState(true);
   const [ticketSelected, setTicketSelected] = useState(null);
 
@@ -21,6 +21,7 @@ export const Home = () => {
       <WhatIsItAbout />
       <SectionMessage />
       <Tickets
+        loadingData={loadingData}
         ticketsWithReservations={ticketsWithReservations}
         onSetVisibleModalReserve={setVisibleModalReserve}
         onSetTicketSelected={setTicketSelected}

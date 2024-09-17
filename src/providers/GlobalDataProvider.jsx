@@ -6,6 +6,7 @@ import { orderBy } from "lodash";
 
 const GlobalDataContext = createContext({
   ticketsWithReservations: [],
+  loadingData: false,
 });
 
 export const GlobalDataProvider = ({ children }) => {
@@ -27,11 +28,10 @@ export const GlobalDataProvider = ({ children }) => {
     error && notification({ type: "error" });
   }, [error]);
 
-  if (loading) return <Spinner height="100svh" />;
-
   return (
     <GlobalDataContext.Provider
       value={{
+        loadingData: loading,
         ticketsWithReservations: orderBy(
           tickets.map((ticket) => ({
             ...ticket,

@@ -98,7 +98,10 @@ export const ModalReserveEdit = ({
       setModalsData(null);
     } catch (e) {
       console.log("Error reserve updated:", e);
-      notification({ type: "error", placement: "topLeft" });
+      notification({
+        type: "error",
+        title: "¡Ocurrió un problema, comunícate por WhatsApp, por favor!",
+      });
     } finally {
       setLoading(false);
     }

@@ -98,12 +98,15 @@ export const ModalReserve = ({
       await addReservation(assignCreateProps(mapReservationData(formData)));
 
       notification({ type: "success", title: "Registrado exitosamente" });
-      resetReservationData();
       onClickVisibleModalReserve(false);
     } catch (e) {
       console.log("Error save reserve:", e);
-      notification({ type: "error", placement: "topLeft" });
+      notification({
+        type: "error",
+        title: "¡Ocurrió un problema, comunícate por WhatsApp, por favor!",
+      });
     } finally {
+      resetReservationData();
       setLoadingContact(false);
     }
   };

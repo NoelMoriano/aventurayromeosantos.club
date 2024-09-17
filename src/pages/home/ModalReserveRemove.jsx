@@ -82,7 +82,10 @@ export const ModalReserveRemove = ({
       resetData();
     } catch (e) {
       console.log("Error reserve deleted:", e);
-      notification({ type: "error", placement: "topLeft" });
+      notification({
+        type: "error",
+        title: "¡Ocurrió un problema, comunícate por WhatsApp, por favor!",
+      });
     } finally {
       setLoading(false);
     }

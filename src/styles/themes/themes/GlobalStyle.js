@@ -94,4 +94,4 @@ const global = css`
   }
 `;
 
-export const GlobalStyle = createGlobalStyle([global]);
+export const GlobalStyle = createGlobalStyle`${global}`;

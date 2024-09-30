@@ -1,12 +1,10 @@
 import { Router } from "./router";
-import { ConfigsInitializer, VersionProvider } from "./providers/index.js";
+import { ConfigsInitializer } from "./providers/index.js";
 
 export const App = () => {
   return (
-    <VersionProvider>
-      <ConfigsInitializer>
-        <Router />
-      </ConfigsInitializer>
-    </VersionProvider>
+    <ConfigsInitializer>
+      <Router />
+    </ConfigsInitializer>
   );
 };

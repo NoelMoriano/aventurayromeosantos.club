@@ -23,7 +23,6 @@ export const Tickets = ({
       <p className="description">
         Disponibles <strong>4 VIPS</strong> y <strong>2 Generales</strong> con
         distintas fechas. <br />
-        <p>¡Tienes hasta el 27 de octubre para enviar tu mejor oferta!</p>
         <small>* Válido solo para Perú 🇵🇪</small> <br />
       </p>
       <div className="tickets-items">

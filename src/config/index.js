@@ -6,6 +6,7 @@ export { default as yup } from "./yup.json";
 const hostName = window.location.hostname;
 
 const hostsProduction = [
+  "cerrandociclos.com",
   "aventurayromeosantos.club",
   "aventura-y-romeo-santos-club",
 ];

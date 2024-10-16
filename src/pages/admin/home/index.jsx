@@ -192,10 +192,13 @@ const Container = styled.div`
 
         .reserve-item {
           font-size: 14px;
+          margin-bottom: 0.7em;
+
           .first-name,
           .last-name {
             text-transform: capitalize;
           }
+
           ul {
             padding: 0.5em;
             margin: 0;
@@ -203,14 +206,17 @@ const Container = styled.div`
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 0.5em;
+
             .icons {
               display: flex;
               gap: 1.5em;
               font-size: 1.5em;
               padding: 0.3em 0;
+
               .phone {
                 color: dodgerblue;
               }
+
               .wsp {
                 color: green;
               }

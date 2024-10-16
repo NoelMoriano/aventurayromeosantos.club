@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import { BaseLayout } from "../components";
+import { BaseLayout, AdminLayout } from "../components";
 import { Home, Page404 } from "../pages";
+import * as A from "../pages/admin";
 
 export const Router = () => {
   return (
@@ -12,6 +13,15 @@ export const Router = () => {
           <BaseLayout>
             <Home />
           </BaseLayout>
+        }
+      />
+      <Route
+        exact
+        path="/dasboard"
+        element={
+          <AdminLayout>
+            <A.Home />
+          </AdminLayout>
         }
       />
       <Route path="*" element={<Page404 />} />

@@ -115,8 +115,17 @@ export const CardTicket = ({
                     </div>
                     <div className="price-and-status">
                       <div className="status">
-                        <Tag className="tag-item" color="orange">
-                          Pendiente
+                        <Tag
+                          className="tag-item"
+                          color={
+                            ticketWithReservation?.status === "pending"
+                              ? "orange"
+                              : "green"
+                          }
+                        >
+                          {ticketWithReservation?.status === "pending"
+                            ? "Pendiente"
+                            : "Aprobado"}
                         </Tag>
                       </div>
                       {ticketWithReservation?.priceOffer && (

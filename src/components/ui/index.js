@@ -28,6 +28,7 @@ export {
 };
 
 export * from "./layout/BaseLayout.jsx";
+export * from "./layout/AdminLayout.jsx";
 export * from "./Checkbox.jsx";
 export * from "./CheckboxGroup.jsx";
 export * from "./DataEntryModal.jsx";

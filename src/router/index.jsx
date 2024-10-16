@@ -17,7 +17,7 @@ export const Router = () => {
       />
       <Route
         exact
-        path="/dasboard"
+        path="/panel"
         element={
           <AdminLayout>
             <A.Home />

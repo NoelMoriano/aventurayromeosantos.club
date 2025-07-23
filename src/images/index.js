@@ -20,3 +20,4 @@ export { default as Photo2 } from "./foto2.webp";
 export { default as MyAvatar } from "./my-avatar.webp";
 export { default as MyPhotoPortada } from "./my-photo-portada.webp";
 export { default as MyPhotoPortada2 } from "./my-photo-portada-2.webp";
+export { default as FansBg } from "./fans-bg.webp";

@@ -216,7 +216,7 @@ const Container = styled.li`
       font-size: 1.2em;
       padding: 0.5em 1em;
       border-radius: 1em;
-      background: black;
+      background: #a19a5f;
       color: #fff;
       width: 70%;
       cursor: pointer;
@@ -264,6 +264,7 @@ const Container = styled.li`
           padding: 0.4em 0.4em;
           border-radius: 0.5em;
           margin-bottom: 0.5em;
+
           ${mediaQuery.minMobile} {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -291,11 +292,13 @@ const Container = styled.li`
                 font-weight: 600;
               }
             }
+
             .actions {
               display: flex;
               flex-wrap: wrap;
               gap: 0.7em;
               font-size: 1.1em;
+
               .icon {
                 cursor: pointer;
               }

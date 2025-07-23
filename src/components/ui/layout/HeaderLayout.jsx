@@ -6,15 +6,9 @@ export const HeaderLayout = () => {
   return (
     <Container>
       <ul id="home">
-        <li>
-          <a href="#home">Inicio</a>
-        </li>
-        <li>
-          <a href="#what-is-it-about">¿De que se trata?</a>
-        </li>
-        <li>
-          <a href="#tickets">Entradas</a>
-        </li>
+        {/*<li>*/}
+        {/*  <a href="#home">Inicio</a>*/}
+        {/*</li>*/}
       </ul>
     </Container>
   );

@@ -1,74 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { PrincipalSection } from "./PrincipalSection";
-import { WhatIsItAbout } from "./WhatIsItAbout.jsx";
-import { Tickets } from "./Tickets.jsx";
+import { SpotifyIframes } from "./SpotifyIframes.jsx";
+import { ModalFansRegister } from "./ModalFansRegister.jsx";
 import { SectionMessage } from "./SectionMessage.jsx";
-import { SpotifyIframe } from "./SpotifyIframe.jsx";
-import { MapaComponent } from "./MapaComponent.jsx";
-import { ModalReserve } from "./ModalReserve.jsx";
-import { Gallery } from "./Gallery.jsx";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { firestore } from "../../firebase/index.js";
-import { notification } from "../../components/index.js";
-import { orderBy } from "lodash";
 
 export const Home = () => {
-  const [visibleModalReserve, setVisibleModalReserve] = useState(true);
-  const [ticketSelected, setTicketSelected] = useState(null);
+  const [visibleModalFansRegister, setVisibleModalFansRegister] =
+    useState(false);
 
-  const [tickets = [], ticketsLoading, ticketsError] = useCollectionData(
-    firestore.collection("tickets").where("isDeleted", "==", false) || null,
-  );
-
-  const [reservations = [], reservationsLoading, reservationsError] =
-    useCollectionData(
-      firestore.collection("reservations").where("isDeleted", "==", false) ||
-        null,
-    );
-
-  const error = reservationsError || ticketsError;
-
-  const loading = reservationsLoading || ticketsLoading;
-
-  useEffect(() => {
-    error && notification({ type: "error" });
-  }, [error]);
-
-  const ticketsWithReservations = orderBy(
-    tickets.map((ticket) => ({
-      ...ticket,
-      reservations: orderBy(
-        reservations.filter(
-          (reservation) => reservation.ticketId === ticket.id,
-        ),
-        (reservation) => [reservation.createAt],
-        ["desc"],
-      ),
-    })),
-    (ticket) => [ticket.createAt],
-    ["desc"],
-  );
+  const onClickVisibleModalFansRegister = () =>
+    setVisibleModalFansRegister(!visibleModalFansRegister);
 
   return (
     <Container>
-      <PrincipalSection />
-      <WhatIsItAbout />
-      <SectionMessage />
-      <Tickets
-        loadingData={loading}
-        ticketsWithReservations={ticketsWithReservations}
-        onSetVisibleModalReserve={setVisibleModalReserve}
-        onSetTicketSelected={setTicketSelected}
+      <div className="first-section">
+        <h1>Aventura y Romeo Santos - Fans</h1>
+      </div>
+      <SpotifyIframes />
+      <SectionMessage
+        onClickVisibleModalFansRegister={onClickVisibleModalFansRegister}
       />
-      <Gallery />
-      <MapaComponent />
-      <SpotifyIframe />
-      <ModalReserve
-        visibleModalReserve={visibleModalReserve && ticketSelected}
-        onClickVisibleModalReserve={setVisibleModalReserve}
-        onSetTicketSelected={setTicketSelected}
-        ticketSelected={ticketSelected}
+      <ModalFansRegister
+        visibleModal={visibleModalFansRegister}
+        onClickVisibleModal={onClickVisibleModalFansRegister}
       />
     </Container>
   );
@@ -76,6 +30,9 @@ export const Home = () => {
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100svh;
   height: auto;
+  .first-section {
+    text-align: center;
+    padding: 1em 0;
+  }
 `;

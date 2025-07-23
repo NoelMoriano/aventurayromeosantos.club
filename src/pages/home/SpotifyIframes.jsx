@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const SpotifyIframe = () => {
+export const SpotifyIframes = () => {
   return (
     <Container>
       <div className="wrapper-iframe">
@@ -15,7 +15,6 @@ export const SpotifyIframe = () => {
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
-
         <iframe
           style={{ borderRadius: "12px" }}
           src="https://open.spotify.com/embed/playlist/3fAlCCVNWkDWb56sgElUFM?utm_source=generator"

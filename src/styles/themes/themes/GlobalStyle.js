@@ -19,6 +19,7 @@ const global = css`
     font-family: "PT Sans", sans-serif;
     font-size: 14px;
     overflow-x: hidden;
+
     ${mediaQuery.minTablet} {
       font-size: 16px;
     }
@@ -26,12 +27,15 @@ const global = css`
 
   .strong {
     font-weight: bold;
+
     &-sm {
       font-weight: 700;
     }
+
     &-md {
       font-weight: 800;
     }
+
     &-lg {
       font-weight: 900;
     }
@@ -51,6 +55,7 @@ const global = css`
     line-height: 1;
     margin-bottom: 0.5em;
     font-weight: 800;
+
     ${mediaQuery.minTablet} {
       font-size: 2.9em;
     }
@@ -91,6 +96,20 @@ const global = css`
   h5 {
     font-size: 1rem;
     font-weight: bold;
+  }
+
+  .btn-secondary {
+    border: none;
+    font-size: 0.6em;
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    background: #dcaf4d;
+    color: #fff;
+    width: auto;
+    cursor: pointer;
+    &:hover {
+      color: #000;
+    }
   }
 `;
 

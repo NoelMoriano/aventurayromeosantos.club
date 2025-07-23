@@ -9,7 +9,6 @@ import { common } from "../../config";
 import {
   Button,
   Col,
-  DatePicker,
   Form,
   Input,
   InputNumber,
@@ -17,32 +16,15 @@ import {
   notification,
   Row,
   TextArea,
-  TimePicker,
+  Alert,
 } from "../../components";
 import { lighten } from "polished";
-import dayjs from "dayjs";
-import { CardSelectedTicket } from "./CardSelectedTicket.jsx";
-import {
-  addReservation,
-  fetchReservationByDni,
-  getReservationId,
-} from "../../firebase/collections/reservations.js";
-import { capitalize, isEmpty, omit } from "lodash";
+import { capitalize, isEmpty } from "lodash";
+import { addUser, fetchUserByDni, getUserId } from "../../firebase/collections";
 
-export const ModalReserve = ({
-  visibleModalReserve,
-  onClickVisibleModalReserve,
-  onSetTicketSelected,
-  ticketSelected,
-}) => {
+export const ModalFansRegister = ({ visibleModal, onClickVisibleModal }) => {
   const { isMobile } = useDevice();
   const { assignCreateProps } = useDefaultFirestoreProps();
-
-  const bestPriceOffer = (ticketSelected?.reservations || [])
-    .filter((reservation) => reservation.priceOffer)
-    .reduce((prev, cur) => {
-      return +cur.priceOffer < +prev.priceOffer ? prev : cur;
-    }, 0);
 
   const [loadingContact, setLoadingContact] = useState(false);
 
@@ -52,10 +34,8 @@ export const ModalReserve = ({
     lastName: yup.string().required(),
     email: yup.string().email().required(),
     phoneNumber: yup.string().min(9).max(9).required(),
-    dateToMeet: yup.mixed().required(),
-    timeToMeet: yup.mixed().required(),
-    priceOffer: yup.string().notRequired(),
     message: yup.string(),
+    is: yup.string(),
   });
 
   const {
@@ -71,34 +51,21 @@ export const ModalReserve = ({
 
   const { required, error } = useFormUtils({ errors, schema });
 
-  const onSubmitReservation = async (formData) => {
+  const onSubmitUser = async (formData) => {
     try {
       setLoadingContact(true);
 
-      if (
-        formData?.priceOffer &&
-        +formData?.priceOffer <=
-          (+bestPriceOffer === 0
-            ? +ticketSelected.price
-            : +bestPriceOffer.priceOffer)
-      )
-        return notification({
-          type: "warning",
-          title:
-            "No puedes ingresar un precio menor o igual al mejor precio ofertado hasta el momento",
-        });
-
-      const reservation = await existsReservation(formData.dni);
-      if (!isEmpty(reservation))
+      const user = await existsUser(formData.dni);
+      if (!isEmpty(user))
         return notification({
           type: "warning",
           title: "Lo siento no puedes volver a usar el mismo DNI",
         });
 
-      await addReservation(assignCreateProps(mapReservationData(formData)));
+      await addUser(assignCreateProps(mapUserData(formData)));
 
       notification({ type: "success", title: "Registrado exitosamente" });
-      onClickVisibleModalReserve(false);
+      onClickVisibleModal();
     } catch (e) {
       console.log("Error save reserve:", e);
       notification({
@@ -111,20 +78,13 @@ export const ModalReserve = ({
     }
   };
 
-  const mapReservationData = (formData) => ({
-    id: getReservationId(),
+  const mapUserData = (formData) => ({
+    id: getUserId(),
     dni: formData.dni,
-    ticketId: ticketSelected.id,
-    ticket: omit(ticketSelected, "reservations"),
     firstName: formData.firstName.toLowerCase(),
     lastName: formData.lastName.toLowerCase(),
     email: formData.email.toLowerCase(),
     phoneNumber: formData.phoneNumber,
-    dateToMeet: dayjs(formData.dateToMeet).format("DD/MM/YYYY"),
-    timeToMeet: isMobile
-      ? formData.timeToMeet
-      : dayjs(formData.timeToMeet).format("HH:mm"),
-    priceOffer: +formData?.priceOffer || "",
     message: formData?.message || "",
   });
 
@@ -135,9 +95,6 @@ export const ModalReserve = ({
       lastName: "",
       email: "",
       phoneNumber: "",
-      dateToMeet: undefined,
-      timeToMeet: undefined,
-      priceOffer: "",
       message: "",
     });
 
@@ -170,8 +127,8 @@ export const ModalReserve = ({
     if (existsDni) {
       (async () => {
         try {
-          const reservation = await existsReservation(dniFormData);
-          if (!isEmpty(reservation))
+          const user = await existsUser(dniFormData);
+          if (!isEmpty(user))
             return notification({
               type: "warning",
               title: "Lo siento no puedes volver a usar el mismo DNI",
@@ -195,9 +152,9 @@ export const ModalReserve = ({
     }
   }, [watch("dni")]);
 
-  const existsReservation = async (dni = "") => {
-    const reservations = await fetchReservationByDni(dni);
-    return reservations?.[0];
+  const existsUser = async (dni = "") => {
+    const users = await fetchUserByDni(dni);
+    return users?.[0];
   };
 
   return (
@@ -205,30 +162,19 @@ export const ModalReserve = ({
       title={
         <div>
           <h4 style={{ margin: "0", fontSize: "1.1em" }}>
-            ¡Agenda tu cita y reserva tu entrada ya!
+            ¡Quiero ser parte de los miles de fans!
           </h4>
         </div>
       }
       closable
-      closeModal={() => {
-        onSetTicketSelected(null);
-        return onClickVisibleModalReserve();
-      }}
-      open={visibleModalReserve}
-      onOk={() => onClickVisibleModalReserve()}
-      onCancel={() => {
-        onSetTicketSelected(null);
-        return onClickVisibleModalReserve();
-      }}
+      closeModal={() => onClickVisibleModal()}
+      open={visibleModal}
+      onOk={() => onClickVisibleModal()}
+      onCancel={() => onClickVisibleModal()}
       footer={null}
     >
-      <Form onSubmit={handleSubmit(onSubmitReservation)}>
+      <Form onSubmit={handleSubmit(onSubmitUser)}>
         <Row gutter={[16, 20]}>
-          <Col span={24}>
-            <div className="card-ticket-selected">
-              <CardSelectedTicket ticket={ticketSelected} />
-            </div>
-          </Col>
           <Col span={24}>
             <Controller
               name="dni"
@@ -314,85 +260,6 @@ export const ModalReserve = ({
               )}
             />
           </Col>
-          <div style={{ width: "100%", margin: "0 .5em" }}>
-            <p className="top-label">
-              Fecha y hora para reunirnos por google meet
-            </p>
-            <Row gutter={[16, 20]}>
-              <Col xs={24} sm={24} md={12}>
-                <Controller
-                  name="dateToMeet"
-                  control={control}
-                  render={({ field: { onChange, value, name } }) => (
-                    <DatePicker
-                      label="Fecha"
-                      size="large"
-                      isMobile={isMobile}
-                      animation={true}
-                      name={name}
-                      value={value}
-                      onChange={onChange}
-                      error={error(name)}
-                      required={required(name)}
-                      minDate={dayjs()}
-                    />
-                  )}
-                />
-              </Col>
-              <Col xs={24} sm={24} md={12}>
-                <Controller
-                  name="timeToMeet"
-                  control={control}
-                  defaultValue={undefined}
-                  render={({ field: { onChange, value, name } }) => (
-                    <TimePicker
-                      label="Hora"
-                      size="large"
-                      format="HH:mm"
-                      isMobile={isMobile}
-                      animation={true}
-                      name={name}
-                      value={value}
-                      onChange={onChange}
-                      error={error(name)}
-                      required={required(name)}
-                    />
-                  )}
-                />
-              </Col>
-            </Row>
-          </div>
-          <Col span={24}>
-            <div>
-              <p className="top-label">
-                Este campo no es obligatorio, pero se le dara mayor prioridad a
-                el mejor postor
-              </p>
-              <div className="best-price">
-                <div>Este es el mejor precio ofertado hasta el momento:</div>
-                <div>
-                  S/{" "}
-                  {+bestPriceOffer === 0
-                    ? ticketSelected?.price
-                    : bestPriceOffer.priceOffer}
-                </div>
-              </div>
-              <Controller
-                name="priceOffer"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <InputNumber
-                    label="Mejorar precio para la entrada"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                  />
-                )}
-              />
-            </div>
-          </Col>
           <Col span={24}>
             <Controller
               name="message"
@@ -412,6 +279,17 @@ export const ModalReserve = ({
             />
           </Col>
           <Col span={24}>
+            <Alert
+              showIcon
+              style={{
+                background: "lightblue",
+                border: "lightblue",
+                fontSize: 11,
+              }}
+              message="Al registrarte, aceptas ser parte de los miles de fans de aventura y Romeo Santos, y recibir promociones, noticias, brindar tus datos y participar en eventos exclusivos."
+            />
+          </Col>
+          <Col span={24}>
             <Button
               type="primary"
               width="100%"
@@ -422,7 +300,7 @@ export const ModalReserve = ({
               loading={loadingContact}
               className="btn-send-reserve"
             >
-              Enviar
+              Registrarme
             </Button>
           </Col>
         </Row>
